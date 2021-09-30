@@ -2,6 +2,8 @@
 
 \documentclass[draft,final]{vutinfth} % Remove option 'final' to obtain debug information.
 
+\usepackage{url}
+
 % Load packages to allow in- and output of non-ASCII characters.
 \usepackage{lmodern}        % Use an extension of the original Computer Modern font to minimize the use of bitmapped letters.
 \usepackage[T1]{fontenc}    % Determines font encoding of the output. Font packages have to be included before this line.
@@ -51,25 +53,26 @@
 %  {title before name}{name}{title after name}{gender}
 %  where both titles are optional (i.e. can be given as empty brackets {}).
 \setauthor{}{\authorname}{BSc.}{male}
-\setadvisor{Univ.Prof.Dr.}{Schahram Dustdar}{}{male}
+\setadvisor{Univ.Prof. Dr.}{Schahram Dustdar}{}{male}
 
 % For bachelor and master theses:
-\setfirstassistant{Pretitle}{Forename Surname}{Posttitle}{male}
-\setsecondassistant{Pretitle}{Forename Surname}{Posttitle}{male}
-\setthirdassistant{Pretitle}{Forename Surname}{Posttitle}{male}
+\setfirstassistant{Dr.}{Thomas Rausch}{}{male}
+% \setsecondassistant{Pretitle}{Forename Surname}{Posttitle}{male}
+% \setthirdassistant{Pretitle}{Forename Surname}{Posttitle}{male}
 
 % For dissertations:
-\setfirstreviewer{Pretitle}{Forename Surname}{Posttitle}{male}
-\setsecondreviewer{Pretitle}{Forename Surname}{Posttitle}{male}
+% \setfirstreviewer{Pretitle}{Forename Surname}{Posttitle}{male}
+% \setsecondreviewer{Pretitle}{Forename Surname}{Posttitle}{male}
 
 % For dissertations at the PhD School and optionally for dissertations:
-\setsecondadvisor{Pretitle}{Forename Surname}{Posttitle}{male} % Comment to remove.
+% \setsecondadvisor{Pretitle}{Forename Surname}{Posttitle}{male} % Comment to remove.
 
 % Required data.
 \setregnumber{01526624}
 \setdate{01}{08}{2020} % Set date with 3 arguments: {day}{month}{year}.
-\settitle{\thesistitle}{Titel der Arbeit} % Sets English and German version of the title (both can be English or German). If your title contains commas, enclose it with additional curvy brackets (i.e., {{your title}}) or define it as a macro as done with \thesistitle.
-\setsubtitle{Optional Subtitle of the Thesis}{Optionaler Untertitel der Arbeit} % Sets English and German version of the subtitle (both can be English or German).
+\settitle{\thesistitle}{Improving Serverless Edge Computing for Network Bound Workloads} % Sets English and German version of the title (both can be English or German). If your title contains commas, enclose it with additional curvy brackets (i.e., {{your title}}) or define it as a macro as done with \thesistitle.
+% \setsubtitle{Optional Subtitle of the Thesis}{Optionaler Untertitel der Arbeit} 
+% Sets English and German version of the subtitle (both can be English or German).
 
 % Select the thesis type: bachelor / master / doctor / phd-school.
 % Bachelor:
@@ -128,6 +131,7 @@
 
 % Switch to arabic numbering and start the enumeration of chapters in the table of content.
 \mainmatter
+\input{misc/acronyms}
 
 \input{chapters/1_Introduction/0_root}
 \input{chapters/2_Background/0_root}
@@ -164,7 +168,7 @@
 \printglossaries
 
 % Add a bibliography.
-\bibliographystyle{alpha}
-\bibliography{intro}
+\bibliographystyle{alphaurl}
+\bibliography{main}
 
 \end{document}
