@@ -1,0 +1,34 @@
+% 10ish pages, about 8 in text, about 2 in figures
+% Results had 18 pages, 50/50 ish split
+% probably some 20ish pages here
+\chapter{Evaluation}
+
+% Stuff that goes here:
+% Faas-sim: what is it, how does it work, what are its models, how does it deal with containers/kubernetes/openfaas/etc. What is simulated, what isn't? How are network flows simulated?
+% Request pattern stuff.
+% what types devices are there
+% what functions are there, how do they perform on each device?
+% image sizes, pulls, request payload sizes, all that stuff
+% topologies: What are there and how are they built? real measurements from papers, etc. etc.
+% -> city level, both old and modern, visualizations, etc.
+
+% practical: how did we eval traefik
+% real cluster, galileo (briefly), what devices are there? Auto-responder type app, payload size, response time, etc.
+
+% Experiments:
+% 1) Prelims
+% 2) traefik resource eval
+% 3) more realistic topo
+% 4) load balancer count tests
+% 5) LB hyperparameter tests
+% 6) the osmotic stuffs?
+
+\include{chapters/6_Evaluation/1_initial}
+\include{chapters/6_Evaluation/2_lrt_implementations}
+\include{chapters/6_Evaluation/3_lb_parametrization}
+\include{chapters/6_Evaluation/4_lb_resource_usage}
+\include{chapters/6_Evaluation/5_edge_intelligence_topo}
+\include{chapters/6_Evaluation/6_lb_scale}
+\include{chapters/6_Evaluation/7_osmotic}
+\include{chapters/6_Evaluation/8_optimization_aggressiveness}
+\include{chapters/6_Evaluation/9_osmotic_dynamics}

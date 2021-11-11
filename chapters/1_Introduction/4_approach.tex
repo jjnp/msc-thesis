@@ -1,7 +1,7 @@
 \section{Approach}
 % 1 page
 Our objective with this thesis is to improve serverless computing for network bound workloads. 
-The improvements we aim for are focused primarily on reducing response time, which has already been identified as an issue %todo cite thomas
+The improvements we aim for are focused primarily on reducing response time, which has already been identified as an issue%todo cite thomas
 , but are likely also translatable to efficiency gains, depending on what implementation goals of the specific system in question are.
 
 
@@ -10,10 +10,10 @@ As our preliminary testing showed, the minimum requirements to make meaningful i
 In that line our goal is to explore what effect distributed ingress points and sophisticated load-balancing methods have on the overall system, and to propose a method for load-balancing and placing ingress points within the network that improves overall system performance.
 
 
-To evaluate different approaches for ingress-placement and load-balancing we use and extend a state of the art serverless computing simulator, and ground those simulations on real data where possible by building upon existing research % cite philipp
+To evaluate different approaches for ingress-placement and load-balancing we use and extend a state of the art serverless computing simulator, and ground those simulations on real data where possible by building upon existing research% cite philipp
 new experiments.
-This way our methodology allows us to explore scenarios beyond those feasible for live-hardware experimentation, while making sure results are as representative as possible by using performance profiles generated via experiments with actual hardware. %todo cite thomas phd thesis
+This way our methodology allows us to explore scenarios beyond those feasible for live-hardware experimentation, while making sure results are as representative as possible by using performance profiles generated via experiments with actual hardware.%todo cite thomas phd thesis
 Apart from simulations in the context of serverless computing, we perform separate simulations and experiments in related and directly relevant areas, deepening the understanding, and showing the relation between the challenges of serverless edge computing and the broader context.
 
-We further explore more than just end user performance metrics, thus showing how the different components present in modern serverless solutions are influenced and themselves influence methods for load-balancing and placing ingress points.
+We further explore more than just end user performance metrics, also showing how the different components present in modern serverless solutions are influenced and themselves influence methods for load-balancing and placing ingress points.
 Through this we gain an understanding of, outline, and propose a potential solution for the engineering problems that need to be solved in order to improve serverless edge computing in practise.

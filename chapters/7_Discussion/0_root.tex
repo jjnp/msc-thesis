@@ -1,2 +1,24 @@
-% target: 9ish pages
+% target: 10ish pages
 \chapter{Discussion}
+
+% findings:
+% 1) briefly re-state the prelim results
+% 2) traefik resource results, nothing special, BUT: respone time increases ram load
+% 3) in such a situation, lb placement and information is even more critical, than assumed. i.e. the more sparse close resources the more extreme the rest
+% 4) information entropy role, shows clear advantage of entropy -> further justification that we need to schedule efficiently
+% 5) weight range can and should be quite large, same with the scaling. Perf spread role in this. Also: results from experiments on which WRR implementation is correct etc.
+% 6) ????
+
+
+
+% 1) Prelims
+% 2) traefik resource eval
+% 3) more realistic topo
+% 4) load balancer count testsPrel
+% 5) LB hyperparameter tests
+% 6) the osmotic stuffs?
+
+\include{chapters/7_Discussion/1_lb_impl_parametrization}
+\include{chapters/7_Discussion/2_lb_resources_scale}
+\include{chapters/7_Discussion/3_osmotic}
+\include{chapters/7_Discussion/4_osmotic_implications}

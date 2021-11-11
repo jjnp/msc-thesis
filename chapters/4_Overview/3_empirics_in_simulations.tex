@@ -1,0 +1,25 @@
+% 1 page
+\section{Using Empirical Data in Simulations}
+As already described that FaaS-Sim\cite{faas-sim-github}, the serverless simulator we use, is a trace-driven simulator\cite{thomas-thesis}, meaning that it relies on measurements of real world data to make its results more representative.
+The types of empirical data that can be used to improve simulation accuracy are very broad, but are typically limited to those that actually affect the metrics one is interested in measuring.
+Usually this includes the memory consumption, CPU utilization, network utilization and storage size of different software components present in the system.
+It can, however, also include more specific metrics such as deployment, staring, stopping and teardown times of container in a Kubernetes cluster\cite{skippy}.
+
+Similar to how Raith et al. extended FaaS-Sim to include traces of real function executions to better represent \glspl{fet} \cite{philipp-da}, we perform experiments to inform how load balancers are modelled within the system.
+Since in current serverless frameworks ingress-points, which is equivalent to a load balancer in our case, are considered as just another service, they compete with function replicas for resources.
+As a result the resource usage of typical application level load balancers is an important metric for us to capture and integrate into the serverless simulator.
+
+For our empirical evaluations we use a real Kubernetes cluster that features a variety of heterogeneous nodes.
+Since we deal with edge computing applications, and resource heterogeneity is a core challenge of edge computing\cite{shiEdgeComputingVisionChallenges2016}, having a range of different nodes to evaluate performance on is critical to account for variance incurred by the use of different types of devices.
+We also make use of and extend galileo\cite{galileo-github}\cite{operating-energy-aware-galileo}, a framework built for distributed load testing, as it allows us to easily define request patterns and loads that then get executed.
+By using this we can go beyond measurements of baseline resource consumption and examine the relationship between the request load of a service and its performance and resource consumption profile.
+To gather performance data of individual containers in a Kubernetes cluster, galileo relies on and integrates with telemd\cite{telemd-github}.
+Telemd is a daemon application that can gather a number of system metrics at specifid intervals, including CPU utilization, memory consumption, disk I/O, and network transfers.
+
+
+% what do I actually want to say?
+% empirical experiments important to inform real world data
+% need to be aligned with the hardware simulated e.g. arm devices, x86, etc. etc.
+% this needs to be measured somehow -> galileo
+%
+%

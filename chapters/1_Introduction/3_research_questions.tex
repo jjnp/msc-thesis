@@ -6,11 +6,11 @@
     This leaves the question of whether or not adapting serverless edge computing frameworks in regard to the scaling and placement of load balancers, including their routing mechanism, results in performance improvements, and if so, how large they likely are.
     
     \item How do edge optimized scaling and placement techniques for load balancers, including the load balancing techniques themselves, affect the overall system behaviour and characteristics in regard to their key performance metrics?\\\\
-    In a serverless computing framework there usually exists an interplay between a number of different components, such as the scaler and the scheduler. %TODO cite here
+    In a serverless computing framework there usually exists an interplay between a number of different components, such as the scaler and the scheduler\cite{openfaas}\cite{kubernetes}. %todo check if we need more here
     When parts of the system are now changed, in this case the way in which load balancers behave, as well as how they are scaled and placed, this change is potentially liable to affect the rest of the system. Some of these effects would of course be intended, such as better end to end latency, but there could also be additional, potentially unwanted effects. It is thus important how exactly such changes affect the system, and what implications that has. These changes are measured in the form of key performance indicators.
     
     \item How can current scaling and placement techniques for load balancers be changed, such that the overall performance of the serverless edge computing system improves?\\\\
-    Serverless (edge) computing frameworks typically already possess a mechanism for scaling and placing services. It is also typical for load balancers to be treated as "just another service", and thus identically to functions. %TODO cite here
+    Serverless (edge) computing frameworks typically already possess a mechanism for scaling and placing services. It is also typical for load balancers to be treated as "just another service", and thus identically to functions\cite{openfaas}. 
     In order to improve the performance, particularly of network bound workloads, the scaling and placement techniques used for load balancers will likely need to be changed. As a result we need to answer the question how the used techniques in that area have to be adapted in order to realize the aspired performance improvements, while still considering the potential side effects this has on the overall system.
     
 \end{enumerate}

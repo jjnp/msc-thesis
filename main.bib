@@ -79,6 +79,180 @@
 }
 
 
+@misc{nginx,
+  title = {{{NGINX}}},
+  author = {F5 Networks Inc.},
+  abstract = {NGINX accelerates content and application delivery, improves security, facilitates availability and scalability for the busiest web sites on the Internet},
+  langid = {american},
+  note = {Accessed 2021-10-05},
+  howpublished = {\url{https://www.nginx.com/}}
+}
+
+@misc{nginx-wrr,
+  title = {{{NGINX}} - Ngx\_http\_upstream\_round\_robin.c},
+  author = {Sysoev, Igor},
+  year = {2021},
+  month = oct,
+  abstract = {An official read-only mirror of http://hg.nginx.org/nginx/ which is updated hourly. Pull requests on GitHub cannot be accepted and will be automatically closed. The proper way to submit changes to nginx is via the nginx development mailing list, see http://nginx.org/en/docs/contributing\_changes.html},
+  collaborator = {{Nginx Inc.}},
+  note = {Accessed 2021-10-05},
+  howpublished = {\url{https://github.com/nginx/nginx/blob/e56ba23158b8466d108fd4d571bd7d9a88f2a473/src/http/ngx_http_upstream_round_robin.c}}
+}
+
+
+@article{osmotic-middleware-rausch,
+  title = {Osmotic {{Message}}-{{Oriented Middleware}} for the {{Internet}} of {{Things}}},
+  author = {Rausch, Thomas and Dustdar, Schahram and Ranjan, Rajiv},
+  year = {2018},
+  month = mar,
+  journal = {IEEE Cloud Computing},
+  volume = {5},
+  number = {2},
+  pages = {17--25},
+  issn = {2325-6095},
+  doi = {10.1109/MCC.2018.022171663},
+  langid = {english}
+}
+
+
+@inproceedings{rausch-ether,
+  title = {Synthesizing {{Plausible Infrastructure Configurations}} for {{Evaluating Edge Computing Systems}}},
+  booktitle = {3rd \{\vphantom\}{{USENIX}}\vphantom\{\} {{Workshop}} on {{Hot Topics}} in {{Edge Computing}} ({{HotEdge}} 20)},
+  author = {Rausch, Thomas and Lachner, Clemens and Frangoudis, Pantelis A. and Raith, Philipp and Dustdar, Schahram},
+  year = {2020},
+  langid = {english},
+  note = {https://www.usenix.org/conference/hotedge20/presentation/rausch}
+}
+
+
+@misc{faas-sim-github,
+  title = {Faas-Sim: A Trace-Driven {{Function}}-as-a-{{Service}} Simulator},
+  shorttitle = {Faas-Sim},
+  author = {{Thomas Rausch} and {Philipp Raith}},
+  year = {2021},
+  month = nov,
+  abstract = {A framework for trace-driven simulation of serverless Function-as-a-Service platforms},
+  copyright = {MIT},
+  keywords = {edge-computing,python,serverless-computing,simpy,simulation},
+  note = {Accessed 2021-11-11},
+  howpublished = {\url{https://github.com/edgerun/faas-sim}}
+}
+
+
+
+@article{skippy,
+  title = {Optimized Container Scheduling for Data-Intensive Serverless Edge Computing},
+  author = {Rausch, Thomas and Rashed, Alexander and Dustdar, Schahram},
+  year = {2021},
+  month = jan,
+  journal = {Future Generation Computer Systems},
+  volume = {114},
+  pages = {259--271},
+  issn = {0167739X},
+  doi = {10.1016/j.future.2020.07.017},
+  abstract = {Operating data-intensive applications on edge systems is challenging, due to the extreme workload and device heterogeneity, as well as the geographic dispersion of compute and storage infrastructure. Serverless computing has emerged as a compelling model to manage the complexity of such systems, by decoupling the underlying infrastructure and scaling mechanisms from applications. Although serverless platforms have reached a high level of maturity, we have found several limiting factors that inhibit their use in an edge setting. This paper presents a container scheduling system that enables such platforms to make efficient use of edge infrastructures. Our scheduler makes heuristic trade-offs between data and computation movement, and considers workload-specific compute requirements such as GPU acceleration. Furthermore, we present a method to automatically fine-tune the weights of scheduling constraints to optimize high-level operational objectives such as minimizing task execution time, uplink usage, or cloud execution cost. We implement a prototype that targets the container orchestration system Kubernetes, and deploy it on an edge testbed we have built. We evaluate our system with trace-driven simulations in different infrastructure scenarios, using traces generated from running representative workloads on our testbed. Our results show that (a) our scheduler significantly improves the quality of task placement compared to the state-of-the-art scheduler of Kubernetes, and (b) our method for fine-tuning scheduling parameters helps significantly in meeting operational goals. \textcopyright{} 2020 The Authors. Published by Elsevier B.V. This is an open access article under the CC BY-NC-ND license (http://creativecommons.org/licenses/by-nc-nd/4.0/).},
+  langid = {english}
+}
+
+@phdthesis{philipp-da,
+  title = {Container {{Scheduling}} on {{Heterogeneous Clusters}} Using {{Machine Learning}}-Based {{Workload Characterization}}},
+  author = {Raith, Philipp Alexander and Rausch, Thomas and {Dustdar, Schahram}},
+  year = {2021},
+  month = feb,
+  address = {{Vienna}},
+  langid = {english},
+  school = {Vienna University of Technology}
+}
+
+
+@phdthesis{thomas-thesis,
+  title = {{A Distributed Compute Fabric for Edge Intelligence}},
+  author = {Rausch, Thomas and {Dustdar, Schahram}},
+  year = {2021},
+  month = may,
+  langid = {german},
+  school = {Vienna University of Technology}
+}
+
+
+@article{shiEdgeComputingVisionChallenges2016,
+  title = {Edge {{Computing}}: Vision and {{Challenges}}},
+  shorttitle = {Edge {{Computing}}},
+  author = {Shi, Weisong and Cao, Jie and Zhang, Quan and Li, Youhuizi and Xu, Lanyu},
+  year = {2016},
+  month = oct,
+  journal = {IEEE Internet of Things Journal},
+  volume = {3},
+  number = {5},
+  pages = {637--646},
+  issn = {2327-4662},
+  doi = {10.1109/JIOT.2016.2579198},
+  abstract = {The proliferation of Internet of Things (IoT) and the success of rich cloud services have pushed the horizon of a new computing paradigm, edge computing, which calls for processing the data at the edge of the network. Edge computing has the potential to address the concerns of response time requirement, battery life constraint, bandwidth cost saving, as well as data safety and privacy. In this paper, we introduce the definition of edge computing, followed by several case studies, ranging from cloud offloading to smart home and city, as well as collaborative edge to materialize the concept of edge computing. Finally, we present several challenges and opportunities in the field of edge computing, and hope this paper will gain attention from the community and inspire more research in this direction.},
+  langid = {english}
+}
+
+
+@misc{telemd-github,
+  title = {Telemd},
+  author = {{Edgerun Authors}},
+  year = {2021},
+  month = sep,
+  abstract = {Daemon for fine-grained system runtime data monitoring},
+  keywords = {go,metrics,monitoring},
+  note = {Accessed 2021-11-11},
+  howpublished = {\url{https://github.com/edgerun/telemd}}
+}
+
+
+@misc{galileo-github,
+  title = {Galileo: A Framework for Distributed Load Testing Experiments},
+  shorttitle = {Galileo},
+  author = {{Rausch, Thomas} and {Raith, Philipp} and {Palecek, Jacob}},
+  year = {2021},
+  month = sep,
+  abstract = {A framework for distributed load testing experiments},
+  keywords = {distributed-load-testing,evaluation-framework,load-testing,python},
+  note = {Accessed 2021-11-11},
+  howpublished = {\url{https://github.com/edgerun/galileo}}
+}
+
+
+@inproceedings{operating-energy-aware-galileo,
+  title = {A System for Operating Energy-Aware Cloudlets: Demo},
+  shorttitle = {A System for Operating Energy-Aware Cloudlets},
+  booktitle = {Proceedings of the 4th {{ACM}}/{{IEEE Symposium}} on {{Edge Computing}}},
+  author = {Rausch, Thomas and Raith, Philipp and Pillai, Padmanabhan and Dustdar, Schahram},
+  year = {2019},
+  month = nov,
+  pages = {307--309},
+  publisher = {{ACM}},
+  address = {{Arlington Virginia}},
+  doi = {10.1145/3318216.3363325},
+  abstract = {We present an end-to-end system for operating energy-aware cloudlets with a low-footprint cluster manager and an adaptive client-side load balancing approach. Our system is designed for small-scale high-density compute clusters that host stateless services and have stringent energy resource constraints. It features cluster and service management, runtime monitoring, adaptive load balancing and cluster reconfiguration policies. Furthermore, we present an experimentation and analytics system that allows coordinated execution of complex workload experiments to evaluate different operational strategies.},
+  isbn = {978-1-4503-6733-2},
+  langid = {english}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

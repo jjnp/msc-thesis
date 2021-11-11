@@ -1,0 +1,19 @@
+\begin{algorithm}
+  \KwIn{Set of available nodes $n_{0},n_{1},n_{...} \in N$}
+  \KwIn{Weights for each of the nodes $w_{n_{0}}, w_{n_{1}}, ... \in W$}
+  \KwIn{Current counter value for each node. $c_{n_{0}}, c_{n_{0}}, ... \in C$}
+  \KwOut{The node the next request should go to}
+    \For{$n \in N$}
+    {
+        $c_{n} \leftarrow c_{n} + w_{n}$ \Comment{add node weight to its counter}
+    }
+    $\text{selectedNode} \leftarrow n: c_{n} = max\{c: c \in C\}$ \Comment{select node with highest counter value}\\
+    $c_{\text{selectedNode}} \leftarrow c_{\text{selectedNode}} - \sum_{w \in W}w$\\
+    
+  \Return{selectedNode}
+
+  \caption{Smooth Weighted Round Robin}
+  \label{alg:smooth-wrr}
+\end{algorithm}
+%todo: maybe rework this to be a bit more elegant
+% currently a bit too much of a mashup between, math, set theory, code

@@ -1,0 +1,11 @@
+\begin{algorithm}
+  \KwIn{The previous average value $\mathbf{\bar{r}_{0}}$, the most recent response time $\mathbf{r}$, the time passed since the last request $\mathbf{\Delta t}$ and the window size $\mathbf{w}$}
+  \KwOut{The new average value $\mathbf{\bar{r}_{1}}$}
+  
+  $\alpha \leftarrow e^{\frac{\mathbf{-\Delta t}}{\mathbf{w}}}$\\
+  $\mathbf{\bar{r}_{1}} \leftarrow (1 - \alpha) * \mathbf{r} + \alpha * \mathbf{\bar{r}_{0}}$\\
+  \Return{$\mathbf{\bar{r}_{1}}$}
+
+  \caption{Response Time Moving Average}
+  \label{alg:exp-moving-avg} % \label has to be placed AFTER \caption to produce correct cross-references.
+\end{algorithm}

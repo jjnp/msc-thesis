@@ -1,0 +1,23 @@
+\begin{table}[]
+\centering
+\begin{tabular}{llll}
+Node          & \textbf{A}                & \textbf{B}                & \textbf{C}                \\
+Weight        & \textbf{4}                & \textbf{2}                & \textbf{1}                \\ \hline
+Iteration \#1 & \cellcolor[HTML]{FFCE93}4 & 2                         & 1                         \\
+              & -3                        & 2                         & 1                         \\ \hline
+Iteration \#2 & 1                         & \cellcolor[HTML]{FFCE93}4 & 2                         \\
+              & 1                         & -3                        & 2                         \\ \hline
+Iteration \#3 & \cellcolor[HTML]{FFCE93}5 & -1                        & 3                         \\
+              & -2                        & -1                        & 3                         \\ \hline
+Iteration \#4 & 2                         & 1                         & \cellcolor[HTML]{FFCE93}4 \\
+              & 2                         & 1                         & -3                        \\ \hline
+Iteration \#5 & \cellcolor[HTML]{FFCE93}6 & 3                         & -2                        \\
+              & -1                        & 3                         & -2                        \\ \hline
+Iteration \#6 & 3                         & \cellcolor[HTML]{FFCE93}5 & -1                        \\
+              & 3                         & -2                        & -1                        \\ \hline
+Iteration \#7 & \cellcolor[HTML]{FFCE93}7 & 0                         & 0                         \\
+              & 0                         & 0                         & 0                        
+\end{tabular}
+\caption{An example of weighted round robin iteration results when using Algorithm \ref{alg:smooth-wrr} as we do in our approach. Colored cells indicate the selected node at the iteration.}
+\label{tab:smooth-wrr-demo}
+\end{table}
