@@ -1,0 +1,14 @@
+\begin{table}[]
+\begin{tabular}{lllll}
+\hline
+\textbf{Node} & \textbf{\begin{tabular}[c]{@{}l@{}}Processor\\ Architecture\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}logical CPU\\ core count\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}RAM\\ (GiB)\end{tabular}} & \textbf{Model Name}           \\ \hline
+AMD           & x86/amd64                                                                 & 8                                                                         & 32                                                           & AMD Ryzen Embedded V1605B     \\
+Intel         & x86/amd64                                                                 & 8                                                                         & 16                                                           & Intel Xeon E3-1230 v6         \\
+Jetson        & aarch64                                                                   & 4                                                                         & 4                                                            & NVIDIA Jetson Nano            \\
+RockPi        & aarch64                                                                   & 6                                                                         & 4                                                            & RockPi 4B                     \\
+RPi           & ARMv7                                                                     & 4                                                                         & 1                                                            & Raspberry Pi 4Model B Rev 1.1
+\end{tabular}
+\caption{Nodes present in the real Kubernetes cluster used for resource consumption evaluation}
+\label{tab:k8s_nodes}
+\end{table}
+
