@@ -448,6 +448,275 @@
 }
 
 
+@inproceedings{aslanpourServerlessEdgeComputing2021,
+  title = {Serverless {{Edge Computing}}: Vision and {{Challenges}}},
+  shorttitle = {Serverless {{Edge Computing}}},
+  booktitle = {2021 {{Australasian Computer Science Week Multiconference}}},
+  author = {Aslanpour, Mohammad S. and Toosi, Adel N. and Cicconetti, Claudio and Javadi, Bahman and Sbarski, Peter and Taibi, Davide and Assuncao, Marcos and Gill, Sukhpal Singh and Gaire, Raj and Dustdar, Schahram},
+  year = {2021},
+  month = feb,
+  pages = {1--10},
+  publisher = {{ACM}},
+  address = {{Dunedin New Zealand}},
+  doi = {10.1145/3437378.3444367},
+  abstract = {Born from a need for a pure ``pay-per-use'' model and highly scalable platform, the ``Serverless'' paradigm emerged and has the potential to become a dominant way of building cloud applications. Although it was originally designed for cloud environments, Serverless is finding its position in the Edge Computing landscape, aiming to bring computational resources closer to the data source. That is, Serverless is crossing cloud borders to assess its merits in Edge computing, whose principal partner will be the Internet of Things (IoT) applications. This move sounds promising as Serverless brings particular benefits such as eliminating always-on services causing high electricity usage, for instance. However, the community is still hesitant to uptake Serverless Edge Computing because of the cloud-driven design of current Serverless platforms, and distinctive characteristics of edge landscape and IoT applications. In this paper, we evaluate both sides to shed light on the Serverless new territory. Our in-depth analysis promotes a broad vision for bringing Serverless to the Edge Computing. It also issues major challenges for Serverless to be met before entering Edge computing.},
+  isbn = {978-1-4503-8956-3},
+  langid = {english}
+}
+
+@inproceedings{baresiServerlessPlatformEdge2019,
+  title = {Towards a {{Serverless Platform}} for {{Edge Computing}}},
+  booktitle = {2019 {{IEEE International Conference}} on {{Fog Computing}} ({{ICFC}})},
+  author = {Baresi, Luciano and Filgueira Mendonca, Danilo},
+  year = {2019},
+  month = jun,
+  pages = {1--10},
+  publisher = {{IEEE}},
+  address = {{Prague, Czech Republic}},
+  doi = {10.1109/ICFC.2019.00008},
+  abstract = {The emergence of real-time and data-intensive applications empowered by mobile computing and IoT devices is challenging the success of centralized data centers, and fostering the adoption of the paradigm of fog/edge computing. Differently from cloud data centers, fog nodes are geographically distributed in proximity to data prosumers, taking advantage of the emerging wireless communication technologies and mobile networks. The limited resources of densely distributed fog nodes call for their efficient use by hosted applications and services. To address this challenge, and the needs of different application scenarios, this paper proposes a serverless platform for edge computing. It starts motivating the adoption of a serverless architecture. Then, it presents the services and mechanisms that are the building blocks of a Serverless Edge Platform. The paper also proposes a prototype platform and its assessment. Obtained results demonstrate the feasibility of the proposed solution for satisfying different application requirements in diverse deployment configurations of heterogeneous fog nodes.},
+  isbn = {978-1-72813-236-5},
+  langid = {english}
+}
+
+@article{cicconettiArchitecturePerformanceEvaluation2020,
+  title = {Architecture and Performance Evaluation of Distributed Computation Offloading in Edge Computing},
+  author = {Cicconetti, Claudio and Conti, Marco and Passarella, Andrea},
+  year = {2020},
+  month = may,
+  journal = {Simulation Modelling Practice and Theory},
+  volume = {101},
+  pages = {102007},
+  issn = {1569190X},
+  doi = {10.1016/j.simpat.2019.102007},
+  abstract = {Edge computing is an emerging paradigm to enable low-latency applications, like mobile augmented reality, because it takes the computation on processing devices that are closer to the users. On the other hand, the need for highly scalable execution of stateless tasks for cloud systems is driving the definition of new technologies based on serverless computing. In this paper, we propose a novel architecture where the two converge to enable low-latency applications: this is achieved by offloading short-lived stateless tasks from the user terminals to edge nodes. Furthermore, we design a distributed algorithm that tackles the research challenge of selecting the best executor, based on real-time measurements and simple, yet effective, prediction algorithms. Finally, we describe a new performance evaluation framework specifically designed for an accurate assessment of algorithms and protocols in edge computing environments, where the nodes may have very heterogeneous networking and processing capabilities. The proposed framework relies on the use of real components on lightweight virtualization mixed with simulated computation and is well-suited to the analysis of several applications and network environments. Using our framework, we evaluate our proposed architecture and algorithms in small- and large-scale edge computing scenarios, showing that our solution achieves similar or better delay performance than a centralized solution, with far less network utilization.},
+  langid = {english}
+}
+
+@article{cicconettiDecentralizedFrameworkServerless2020,
+  title = {A {{Decentralized Framework}} for {{Serverless Edge Computing}} in the {{Internet}} of {{Things}}},
+  author = {Cicconetti, Claudio and Conti, Marco and Passarella, Andrea},
+  year = {2020},
+  journal = {IEEE Transactions on Network and Service Management},
+  pages = {1--1},
+  issn = {1932-4537, 2373-7379},
+  doi = {10.1109/TNSM.2020.3023305},
+  abstract = {Serverless computing is becoming widely adopted among cloud providers, thus making increasingly popular the Function-as-a-Service (FaaS) programming model, where the developers realize services by packaging sequences of stateless function calls. The current technologies are very well suited to data centers, but cannot provide equally good performance in decentralized environments, such as edge computing systems, which are expected to be typical for Internet of Things (IoT) applications. In this paper, we fill this gap by proposing a framework for efficient dispatching of stateless tasks to in-network executors so as to minimize the response times while exhibiting short- and long-term fairness, also leveraging information from a virtualized network infrastructure when available. Our solution is shown to be simple enough to be installed on devices with limited computational capabilities, such as IoT gateways, especially when using a hierarchical forwarding extension. We evaluate the proposed platform by means of extensive emulation experiments with a prototype implementation in realistic conditions. The results show that it is able to smoothly adapt to the mobility of clients and to the variations of their service request patterns, while coping promptly with network congestion.},
+  langid = {english}
+}
+
+@article{cicconettiDistributedComputingEnvironments2020,
+  title = {Toward {{Distributed Computing Environments}} with {{Serverless Solutions}} in {{Edge Systems}}},
+  author = {Cicconetti, Claudio and Conti, Marco and Passarella, Andrea and Sabella, Dario},
+  year = {2020},
+  month = mar,
+  journal = {IEEE Communications Magazine},
+  volume = {58},
+  number = {3},
+  pages = {40--46},
+  issn = {0163-6804, 1558-1896},
+  doi = {10.1109/MCOM.001.1900498},
+  abstract = {Computation offloading through stateless applications is gaining momentum thanks to the emergence of serverless frameworks with inherent scalability properties. However, adoption of a serverless framework in an edge computing system requires careful consideration to keep its advantages unscathed. In the cloud, micro-services are scaled automatically according to demands, but in edge computing this would incur a significantly higher cost than in a data center and cannot be as fluid. This is especially relevant in scenarios where edge nodes are spread across large areas and have relatively small computation capabilities. In this article we propose to overcome this issue by adapting the allocation of demands to the currently allocated micro-services at short timescales, with two alternative mechanisms designed for different target scenarios, both aimed at enabling distributed computing environments. The proposed solution can be integrated within the ETSI MEC standard, which specifies a reference architecture and open service interfaces. Our contribution is validated in a proof-of-concept scenario with a prototype implementation released as open source.},
+  langid = {english}
+}
+
+@inproceedings{gadepalliChallengesOpportunitiesEfficient2019,
+  title = {Challenges and {{Opportunities}} for {{Efficient Serverless Computing}} at the {{Edge}}},
+  booktitle = {2019 38th {{Symposium}} on {{Reliable Distributed Systems}} ({{SRDS}})},
+  author = {Gadepalli, Phani Kishore and Peach, Gregor and Cherkasova, Ludmila and Aitken, Rob and Parmer, Gabriel},
+  year = {2019},
+  month = oct,
+  pages = {261--2615},
+  publisher = {{IEEE}},
+  address = {{Lyon, France}},
+  doi = {10.1109/SRDS47363.2019.00036},
+  abstract = {Serverless computing frameworks allow users to execute a small application (dedicated to a specific task) without handling operational issues such as server provisioning, resource management, and resource scaling for the increased load. Serverless computing originally emerged as a Cloud computing framework, but might be a perfect match for IoT data processing at the Edge. However, the existing serverless solutions, based on VMs and containers, are too heavy-weight (large memory footprint and high function invocation time) for operating efficiency and elastic scaling at the Edge. Moreover, many novel IoT applications require low-latency data processing and near real-time responses, which makes the current cloudbased serverless solutions unsuitable. Recently, WebAssembly (Wasm) has been proposed as an alternative method for running serverless applications at near-native speeds, while having a small memory footprint and optimized invocation time. In this paper, we discuss some existing serverless solutions, their design details, and unresolved performance challenges for an efficient serverless management at the Edge. We outline our serverless framework, called aWsm, based on the WebAssembly approach, and discuss the opportunities enabled by the aWsm design, including function profiling and SLO-driven performance management of users' functions. Finally, we present an initial assessment of aWsm performance featuring average startup time (12{$\mu$}s to 30{$\mu$}s) and an economical memory footprint (ranging from 10s to 100s of kB) for a subset of MiBench microbenchmarks used as functions.},
+  isbn = {978-1-72814-222-7},
+  langid = {english}
+}
+
+@inproceedings{gliksonDevicelessEdgeComputing2017,
+  title = {Deviceless Edge Computing: Extending Serverless Computing to the Edge of the Network},
+  shorttitle = {Deviceless Edge Computing},
+  booktitle = {Proceedings of the 10th {{ACM International Systems}} and {{Storage Conference}}},
+  author = {Glikson, Alex and Nastic, Stefan and Dustdar, Schahram},
+  year = {2017},
+  month = may,
+  pages = {1--1},
+  publisher = {{ACM}},
+  address = {{Haifa Israel}},
+  doi = {10.1145/3078468.3078497},
+  abstract = {The serverless paradigm has been rapidly adopted by developers of cloud-native applications, mainly because it relieves them from the burden of provisioning, scaling and operating the underlying infrastructure. In this paper, we propose a novel computing paradigm \textendash{} Deviceless Edge Computing that extends the serverless paradigm to the edge of the network, enabling IoT and Edge devices to be seamlessly integrated as application execution infrastructure. We also discuss open challenges to realize Deviceless Edge Computing, based on our experience in prototyping a deviceless platform.},
+  isbn = {978-1-4503-5035-8},
+  langid = {english}
+}
+
+@inproceedings{ishakianServingDeepLearning2018,
+  title = {Serving {{Deep Learning Models}} in a {{Serverless Platform}}},
+  booktitle = {2018 {{IEEE International Conference}} on {{Cloud Engineering}} ({{IC2E}})},
+  author = {Ishakian, Vatche and Muthusamy, Vinod and Slominski, Aleksander},
+  year = {2018},
+  month = apr,
+  pages = {257--262},
+  publisher = {{IEEE}},
+  address = {{Orlando, FL}},
+  doi = {10.1109/IC2E.2018.00052},
+  abstract = {Serverless computing has emerged as a compelling paradigm for the development and deployment of a wide range of event based cloud applications. At the same time, cloud providers and enterprise companies are heavily adopting machine learning and Artificial Intelligence to either differentiate themselves, or provide their customers with value added services. In this work we evaluate the suitability of a serverless computing environment for the inferencing of large neural network models. Our experimental evaluations are executed on the AWS Lambda environment using the MxNet deep learning framework. Our experimental results show that while the inferencing latency can be within an acceptable range, longer delays due to cold starts can skew the latency distribution and hence risk violating more stringent SLAs.},
+  isbn = {978-1-5386-5008-0},
+  langid = {english}
+}
+
+@article{nasticServerlessRealTimeData2017,
+  title = {A {{Serverless Real}}-{{Time Data Analytics Platform}} for {{Edge Computing}}},
+  author = {Nastic, Stefan and Rausch, Thomas and Scekic, Ognjen and Dustdar, Schahram and Gusev, Marjan and Koteska, Bojana and Kostoska, Magdalena and Jakimovski, Boro and Ristov, Sasko and Prodan, Radu},
+  year = {2017},
+  journal = {IEEE Internet Computing},
+  volume = {21},
+  number = {4},
+  pages = {64--71},
+  issn = {1089-7801},
+  doi = {10.1109/MIC.2017.2911430},
+  langid = {english}
+}
+
+@inproceedings{rauschEdgeIntelligenceConvergence2019,
+  title = {Edge {{Intelligence}}: The {{Convergence}} of {{Humans}}, {{Things}}, and {{AI}}},
+  shorttitle = {Edge {{Intelligence}}},
+  booktitle = {2019 {{IEEE International Conference}} on {{Cloud Engineering}} ({{IC2E}})},
+  author = {Rausch, Thomas and Dustdar, Schahram},
+  year = {2019},
+  month = jun,
+  pages = {86--96},
+  publisher = {{IEEE}},
+  address = {{Prague, Czech Republic}},
+  doi = {10.1109/IC2E.2019.00022},
+  abstract = {Edge AI and Human Augmentation are two major technology trends, driven by recent advancements in edge computing, IoT, and AI accelerators. As humans, things, and AI continue to grow closer together, systems engineers and researchers are faced with new and unique challenges. In this paper, we analyze the role of edge computing and AI in the cyberhuman evolution, and identify challenges that edge computing systems will consequently be faced with. We take a closer look at how a cyber-physical fabric will be complemented by AI operationalization to enable seamless end-to-end edge intelligence systems.},
+  isbn = {978-1-72810-218-4},
+  langid = {english}
+}
+
+@article{rauschServerlessPlatformEdge,
+  title = {Towards a {{Serverless Platform}} for {{Edge AI}}},
+  author = {Rausch, Thomas and Hummer, Waldemar and Muthusamy, Vinod and Dustdar, Schahram and Rashed, Alexander},
+  pages = {7},
+  abstract = {This paper proposes a serverless platform for building and operating edge AI applications. We analyze edge AI use cases to illustrate the challenges in building and operating AI applications in edge cloud scenarios. By elevating concepts from AI lifecycle management into the established serverless model, we enable easy development of edge AI workflow functions. We take a deviceless approach, i.e., we treat edge resources transparently as cluster resources, but give developers fine-grained control over scheduling constraints. Furthermore, we demonstrate the limitations of current serverless function schedulers, and present the current state of our prototype.},
+  langid = {english},
+  keywords = {used},
+  booktitle = {2nd {USENIX} Workshop on Hot Topics in Edge Computing (HotEdge 19)},
+    year = {2019},
+    address = {Renton, WA},
+    url = {https://www.usenix.org/conference/hotedge19/presentation/rausch},
+    publisher = {{USENIX} Association},
+    month = jul
+}
+
+
+@article{bermbachAuctionBasedFunctionPlacement2020,
+  title = {Towards {{Auction}}-{{Based Function Placement}} in {{Serverless Fog Platforms}}},
+  author = {Bermbach, David and Maghsudi, Setareh and Hasenburg, Jonathan and Pfandzelter, Tobias},
+  year = {2020},
+  month = mar,
+  journal = {arXiv:1912.06096 [cs]},
+  eprint = {1912.06096},
+  eprinttype = {arxiv},
+  primaryclass = {cs},
+  abstract = {The Function-as-a-Service (FaaS) paradigm has a lot of potential as a computing model for fog environments comprising both cloud and edge nodes. When the request rate exceeds capacity limits at the edge, some functions need to be offloaded from the edge towards the cloud.},
+  archiveprefix = {arXiv},
+  langid = {english},
+  keywords = {Computer Science - Distributed; Parallel; and Cluster Computing,Computer Science - Networking and Internet Architecture},
+  note = {http://arxiv.org/abs/1912.06096}
+}
+
+@inproceedings{gaoWinningStartingLine2019,
+  title = {Winning at the {{Starting Line}}: Joint {{Network Selection}} and {{Service Placement}} for {{Mobile Edge Computing}}},
+  shorttitle = {Winning at the {{Starting Line}}},
+  booktitle = {{{IEEE INFOCOM}} 2019 - {{IEEE Conference}} on {{Computer Communications}}},
+  author = {Gao, Bin and Zhou, Zhi and Liu, Fangming and Xu, Fei},
+  year = {2019},
+  month = apr,
+  pages = {1459--1467},
+  publisher = {{IEEE}},
+  address = {{Paris, France}},
+  doi = {10.1109/INFOCOM.2019.8737543},
+  abstract = {Mobile Edge Computing (MEC) is an emerging computing paradigm in which computational capabilities are pushed from the central cloud to the network edges. However, preserving the satisfactory quality-of-service (QoS) for user applications is non-trivial among multiple densely dispersed yet capacity constrained MEC nodes. This is mainly because both the access network and edge nodes are vulnerable to network congestion. Previous works are mostly limited to optimizing the QoS through dynamic service placement, while ignoring the critical effects of access network selection on the network congestion. In this paper, we study the problem of jointly optimizing the access network selection and service placement for MEC, towards the goal of improving the QoS by balancing the access, switching and communication delay. Specifically, we first design an efficient online framework to decompose the long-term optimization problem into a series of one-shot problems. To address the NP-hardness of the one-shot problem, we further propose an iteration-based algorithm to derive a computation efficient solution. Both rigorous theoretical analysis on the optimality gap and extensive trace-driven simulations validate the efficacy of our proposed solution.},
+  isbn = {978-1-72810-515-4},
+  langid = {english}
+}
+
+@article{maContainerMigrationMechanism2020,
+  title = {Container {{Migration Mechanism}} for {{Load Balancing}} in {{Edge Network Under Power Internet}} of {{Things}}},
+  author = {Ma, Zitong and Shao, Sujie and Guo, Shaoyong and Wang, Zhili and Qi, Feng and Xiong, Ao},
+  year = {2020},
+  journal = {IEEE Access},
+  volume = {8},
+  pages = {118405--118416},
+  issn = {2169-3536},
+  doi = {10.1109/ACCESS.2020.3004615},
+  abstract = {As a novel computing technology closer to business ends, edge computing has become an effective solution for delay sensitive business of power Internet of Things (IoT). However, the uneven spatial and temporal distribution of business requests in edge network leads to a significant difference in business busyness between edge nodes. Due to the natural lightweight and portability, container migration has become a critical technology for load balancing, thereby optimizing the resource utilization of edge nodes. To this end, this paper proposes a container migration-based decision-making (CMDM) mechanism in power IoT. First, a load differentiation matrix model between edge nodes is constructed to determine the timing of container migration. Then, a container migration model of load balancing joint migration cost (LBJC) is established to minimize the impact of container migration while balancing the load of edge network. Finally, the migration priority of containers is determined from the perspective of resource correlation and business relevance, and by introducing a pseudo-random ratio rule and combining the local pheromone evaporation with global pheromone update at the same time, a migration algorithm based on modified Ant Colony System (MACS) is designed to utilize the LBJC model and thus guiding the choice of possible migration actions. The simulation results show that compared with genetic algorithm (GA) and Space Aware Best Fit Decreasing (SABFD) algorithm, the comprehensive performance of CMDM in load balancing joint migration cost is improved by 7.3\% and 12.5\% respectively.},
+  langid = {english}
+}
+
+@article{nezamiDecentralizedEdgetoCloudLoad2021,
+  title = {Decentralized {{Edge}}-to-{{Cloud Load Balancing}}: Service {{Placement}} for the {{Internet}} of {{Things}}},
+  shorttitle = {Decentralized {{Edge}}-to-{{Cloud Load Balancing}}},
+  author = {Nezami, Zeinab and Zamanifar, Kamran and Djemame, Karim and Pournaras, Evangelos},
+  year = {2021},
+  journal = {IEEE Access},
+  volume = {9},
+  pages = {64983--65000},
+  issn = {2169-3536},
+  doi = {10.1109/ACCESS.2021.3074962},
+  abstract = {The Internet of Things (IoT) requires a new processing paradigm that inherits the scalability of the cloud while minimizing network latency using resources closer to the network edge. On the one hand, building up such flexibility within the edge-to-cloud continuum consisting of a distributed networked ecosystem of heterogeneous computing resources is challenging. On the other hand, IoT traffic dynamics and the rising demand for low-latency services foster the need for minimizing the response time and a balanced service placement. Load-balancing for fog computing becomes a cornerstone for cost-effective system management and operations. This paper studies two optimization objectives and formulates a decentralized load-balancing problem for IoT service placement: (global) IoT workload balance and (local) quality of service (QoS), in terms of minimizing the cost of deadline violation, service deployment, and unhosted services. The proposed solution, EPOS Fog, introduces a decentralized multi-agent system for collective learning that utilizes edge-to-cloud nodes to jointly balance the input workload across the network and minimize the costs involved in service execution. The agents locally generate possible assignments of requests to resources and then cooperatively select an assignment such that their combination maximizes edge utilization while minimizes service execution cost. Extensive experimental evaluation with realistic Google cluster workloads on various networks demonstrates the superior performance of EPOS Fog in terms of workload balance and QoS, compared to approaches such as First Fit and exclusively Cloud-based. The results confirm that EPOS Fog reduces service execution delay up to 25\% and the load-balance of network nodes up to 90\%. The findings also demonstrate how distributed computational resources on the edge can be utilized more cost-effectively by harvesting collective intelligence.},
+  langid = {english}
+}
+
+@article{yangEdgeCoordinatedQuery2020,
+  title = {Edge {{Coordinated Query Configuration}} for {{Low}}-{{Latency}} and {{Accurate Video Analytics}}},
+  author = {Yang, Peng and Lyu, Feng and Wu, Wen and Zhang, Ning and Yu, Li and Shen, Xuemin Sherman},
+  year = {2020},
+  month = jul,
+  journal = {IEEE Transactions on Industrial Informatics},
+  volume = {16},
+  number = {7},
+  pages = {4855--4864},
+  issn = {1551-3203, 1941-0050},
+  doi = {10.1109/TII.2019.2949347},
+  abstract = {To develop smart city and intelligent manufacturing, video cameras are being increasingly deployed. In order to achieve fast and accurate response to live video queries (e.g., license plate recording and object tracking), the real-time highvolume video streams should be delivered and analyzed efficiently. In this paper, we introduce an end-edge-cloud coordination framework for low-latency and accurate live video analytics. Considering the locality of video queries, edge platform is designated as the system coordinator. It accepts live video queries and configures the related end cameras to generate video frames that meet quality requirements. By taking into account the latency constraint, edge computing resources are subtly distributed to process the live video frames from different sources, such that the analytic accuracy of the accepted video queries can be maximized. Since the amount of required edge computing resource and video quality to accurately address different video queries are unknown in advance, we propose an online video quality and computing resource configuration algorithm to gradually learn the optimal configuration strategy. Extensive simulation results show that, as compared to other benchmarks, the proposed configuration algorithm can effectively improve the analytic accuracy, while providing low-latency response.},
+  langid = {english}
+}
+
+@inproceedings{zhaoOptimalPlacementVirtual2017,
+  title = {Optimal {{Placement}} of {{Virtual Machines}} in {{Mobile Edge Computing}}},
+  booktitle = {{{GLOBECOM}} 2017 - 2017 {{IEEE Global Communications Conference}}},
+  author = {Zhao, Lei and Liu, Jiajia and Shi, Yongpeng and Sun, Wen and Guo, Hongzhi},
+  year = {2017},
+  month = dec,
+  pages = {1--6},
+  publisher = {{IEEE}},
+  address = {{Singapore}},
+  doi = {10.1109/GLOCOM.2017.8254084},
+  abstract = {Mobile edge computing (MEC), as an extension of the cloud computing paradigm to the edge network, is a promising solution to provide resource-intensive and timecritical applications to mobile users. It overcomes some obstacles of traditional mobile cloud computing by offering ultra-short latency and less core network traffic. This paper proposes a new framework based on the architecture of MEC to deliver cloud services to the edge. We introduce enumeration based optimal placement algorithm (EOPA) and divide-and-conquer based nearoptimal placement algorithm (DCNOPA) to attain minimal data traffic by distributing virtual machine replica copies (VRCs) of applications to the edge network. Simulation results show that compared to the famous K-medians clustering algorithm (KMCA), the performance of DCNOPA is much closer to that of EOPA with lower computational complexity. Furthermore, we investigate the optimal number of VRCs within a given limitation of benefit-to-cost ratio.},
+  isbn = {978-1-5090-5019-2},
+  langid = {english}
+}
+
+@article{zhaoOptimalPlacementVirtual2018,
+  title = {Optimal {{Placement}} of {{Virtual Machines}} for {{Supporting Multiple Applications}} in {{Mobile Edge Networks}}},
+  author = {Zhao, Lei and Liu, Jiajia},
+  year = {2018},
+  journal = {IEEE Transactions on Vehicular Technology},
+  pages = {1--1},
+  issn = {0018-9545, 1939-9359},
+  doi = {10.1109/TVT.2018.2808171},
+  abstract = {Although mobile edge computing (MEC), as an extension of the cloud computing paradigm to edge networks, overcomes some obstacles of traditional mobile cloud computing, i.e., the reduced response time particularly, it is a nontrivial task to efficiently deploy virtual machine replica copies (VRCs) supporting multiple applications among numerous MEC servers in edge networks. To combat this issue, we are motivated to investigate in detail the optimal placement of VRCs to minimize the average response time (MART) in the MEC architecture with various requests demand among multiple applications and capacity constraints of MEC servers in edge networks. Besides optimal enumeration placement algorithm (OEPA) as benchmark, we design latency aware heuristic placement algorithm (LAHPA) with much lower computation complexity than that of OEPA. To enhance the performance of LAHPA on MART, clustering enhanced heuristic placement algorithm (CEHPA) is proposed, focusing on the optimal VRC placement in each cluster. We also develop substitution enhanced heuristic placement algorithm (SEHPA) to avoid falling into local optimal solutions. As corroborated by extensive simulation results, the performance of SEHPA on MART is very close to that of OEPA compared with LAHPA and CEHPA. Note that CEHPA also outperforms LAHPA, and both are better than a general greedy placement algorithm. Furthermore, we evaluate the normalized total cost for services provision in edge networks, where SEHPA can also get more outstanding results than other algorithms.},
+  langid = {english}
+}
+
+
+
+
+
+
 
 
 

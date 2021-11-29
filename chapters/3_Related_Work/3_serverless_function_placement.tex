@@ -1,2 +1,28 @@
 \section{Serverless Function Placement}
-% 2 pages+
+While not necessarily dealing with load balancer, like we are in this work, we consider research that deals with serverless function placement, and generalized service placement in edge computing to be related, as similar mechanisms and decision making methods apply.
+
+In this context, Zhao et al. \cite{zhaoOptimalPlacementVirtual2017} propose heuristic algorithms efficiently place services in a mobile edge computing environment.
+In their work they aim to minimize the overall data traffic within the system by optimizing placement decisions of a given number of replicas within an edge computing system.
+To this end they first formulate their optimization problem, which has the goal of placing $k$ service replicas among the available nodes such that the overall traffic within the network generated from client requests is minimal.
+They present their Divide-and-Conquer Based Near-Optimal Placement Algorithm\cite{zhaoOptimalPlacementVirtual2017}, which is a heuristic algorithm that for a given target deployment of $k$ replicas divides the set of all possible nodes into $k$ clusters.
+Within each cluster a single replica is placed on the best node available in the cluster.
+While not necessarily optimal, the division into multiple clusters dramatically reduces computation complexity, while performing almost as good as a full-space search for optimal placement.
+Building on this work Zhao, and Liu\cite{zhaoOptimalPlacementVirtual2018} present a similar algorithm also based around divide-and-conquer methods, which aims to minimize average client request latency.
+
+Raith, Rausch and Dustdar\cite{philipp-da} propose a method for machine learning based workload characterization to then make improved scheduling decisions for serverless edge computing functions.
+Evaluating their approach both through simulation and experimentation on a physical test bed, they show that their approach is able to reduce \gls{fet}, as well as performance degradation caused by resource contention significantly, compared to default methods employed in serverless frameworks\cite{philipp-da}.
+
+Nezami et al.\cite{nezamiDecentralizedEdgetoCloudLoad2021} present a method for decentralized scheduling of services throughout the cloud-edge continuum.
+Building on a multi-objective function they propose that nodes create deployment scenarios for their local neighborhood using a greedy heuristic.
+Local solutions are then cooperatively combined to make the actual scheduling decisions.
+
+Ma et al.\cite{maContainerMigrationMechanism2020} propose the usage of ant colony optimization to migrate application instances from overloaded to underloaded regions of the edge, such that overall the system is as balanced as possible.
+
+Gao et al.\cite{gaoWinningStartingLine2019} approach client assignment and service placement in a joint way.
+In their view of mobile edge computing, they consider clients attached to ingress points to the network, which are potentially subject to network congestion.
+They suggest optimizing the placement of services in the network, and the assignment of clients to network entry points should be optimized together, thus enabling better performance than optimizing both separately.
+
+Finally Bernbach et al.\cite{beraldiCooperativeLoadBalancing2017} propose to address the issue of potentially competing applications being scheduled on a limited set of resources by having the application developers, and by extension the application, bid for resources.
+They argue that such an auction based approach can be used to make a balanced assignment of applications to nodes, or to maximize the profits of edge platform providers.
+
+% 1 page
