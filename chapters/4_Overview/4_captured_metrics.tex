@@ -1,2 +1,13 @@
 % 1-2 pages
 \section{Captured Metrics}
+There is a significant number of metrics that could be captured using such a simulation. With FaaS-Sim we capture traces of the requests being sent, and major system events.
+The major system events are the addition or removal of deployments, as well as all scaling and scheduling decisions with respect to functions and load balancers.
+For requests our traces provide the following information: \gls{trt}, \gls{fet}, waiting time, request client, load balancer instance, function instance, and the network times between client, load balancer and function instance.
+The waiting time refers to the elapsed between a request having been received by a function instance, and the request being processed.
+Waiting times occur if a node receives requests faster than it can process them.
+In terms of resource usage, the resources reserved by the simulated Kubernetes pods, which correspond to the requirements defined in Kubernetes deployment manifests, are also recorded.
+Note that this does not necessarily correspond to actual resource usage.
+Because these reserved resource metrics are used for Kubernetes' scheduling decisions, we believe they are still worth being captured.
+
+In keeping with the set of potential metrics outlined by Aslanpour, Gill and Toosi\cite{aslanpourPerformanceEvaluationMetrics2020a}, we pay particular attention to response times, potential \gls{sla} levels and oscillation mitigation.
+We also introduce more qualitative metrics, related to our particular evaluation scenario, such as the share of requests being routed outside of the city or network region they originate in.

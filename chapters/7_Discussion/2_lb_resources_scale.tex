@@ -1,2 +1,33 @@
 \section{Resource Usage and Load Balancer Scale}
 % 1 page
+\subsection{Resource Usage Patterns}
+Somewhat unexpectedly, the resource usage between different device types differs significantly.
+While the variance in CPU utilization was to be expected, given that the different device's processors vary vastly in terms of core count, frequency, cache size, and power consumption, the difference observed in terms of memory consumption is harder to explain.
+
+As can be seen in table \ref{tab:resource_eval_results}, the memory consumption is split in two groups which differ by a factor of four. Considering that there groups aren't separated by the device's respective processor architecture, we believe that operating system specific reasons are the cause of these variations.
+While all devices tested run some form of Linux, typically Debian based, the specific Linux distribution differs, because particularly the edge-type devices feature special purpose hardware and thus rely on specially adapted version of Linux to function properly.
+
+We also observe that the edge devices more frequently feature ARM based processor architectures, which are lower in computational power and for which running a load balancer instances poses a bigger challenge compared to traditional x86 based systems. One should note, however, that this different is not necessarily due to the processor architecture itself, but due to the fact that the devices feature very different \glspl{tdp}, and ARM based devices feature lower \glspl{tdp}, at least in the selection of devices we evaluated.
+
+The second major observation of this experiment, namely that longer response times or upstream node lead to increased memory usage as can be seen in figure \ref{fig:lb_resources_by_rt}, is  easily explained.
+As the type of load balancer we evaluate is an application level load balancer, when receiving a request it must first fully receive it before it can make a load balancing decision.
+This means that if a request takes longer to receive its parts need to be kept in memory for a longer time.
+This is true both for clients sending requests, as well as for upstreams responding to forwarded requests.
+This also holds for the request processing time, or \gls{fet} in serverless computing, as the load balancer needs to at least keep some information of each request in memory while the upstream processes it.
+
+\subsection{Resource Usage Implications}
+
+
+
+
+
+
+
+
+
+
+
+
+% Todo put this in the discussion
+% This effect is also due to the reason that not all nodes have clients close to them, which means that while there are more load balancers present in the system, the number of load balancers actually receiving traffic from clients doesn't change, as clients send traffic to the closest load balancer.
+% We can also show this in the data -> e.g. global high: 50% -> 90 load balancers in use, 100% -> 113 load balancers in use.

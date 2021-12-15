@@ -1,0 +1,31 @@
+\begin{table}[]
+\begin{tabular}{lcccc}
+\hline
+\textbf{Bin}        & \textbf{LOW}  & \textbf{MED} & \textbf{HIGH} & \textbf{VERY HIGH} \\ \hline
+CPU Cores (logical) & 1 - 2         & 4 - 8        & 16 - 32       & \textgreater 32    \\
+Memory              & 1 to 2        & 4 - 8        & 9 - 32        & \textgreater 32    \\
+CPU Frequency (GHz) & \textless 1.5 & 1.6 - 2.2    & \textless 3.5 & \textgreater 3.5   \\ \hline
+\end{tabular}
+\caption{Resource binning used for performance categorization and prediction with Ether devices by Raith, Rausch and Dustdar\cite{philipp-da}}
+\label{tab:ether_bins}
+\end{table}
+
+\begin{table}[]
+\begin{tabular}{lrrrrr}
+\hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Device\\ Name\end{tabular}} & \textbf{\begin{tabular}[c]{@{}r@{}}CPU\\ Arch\end{tabular}} & \textbf{\begin{tabular}[c]{@{}r@{}}CPU\\ Cores\end{tabular}} & \textbf{\begin{tabular}[c]{@{}r@{}}CPU\\ Freq\end{tabular}} & \textbf{\begin{tabular}[c]{@{}r@{}}Memory\\ GiB\end{tabular}} & \textbf{GPU/AI Accel}   \\ \hline
+RPi3                                                           & arm32v7                                                     & 4                                                            & LOW                                                         & 1                                                             & -                       \\
+RPi4                                                           & arm32v7                                                     & 4                                                            & MED                                                         & 1                                                             & -                       \\
+RockPi                                                         & aarch64                                                     & 6                                                            & MED                                                         & 4                                                             & -                       \\
+Coral                                                          & aarch64                                                     & 4                                                            & MED                                                         & 1                                                             & Google TPU co-processor \\
+Intel NUC                                                            & x86\_64                                                     & 4                                                            & MED                                                         & 16                                                            & -                       \\
+Jetson Xavier NX                                                             & aarch64                                                     & 6                                                            & LOW                                                         & 8                                                             & 384-core Volta          \\
+Jetson Nano                                                           & aarch64                                                     & 4                                                            & LOW                                                         & 4                                                             & 128-core Maxwell        \\
+Jetson TX2                                                           & aarch64                                                     & 4                                                            & LOW                                                         & 8                                                             & 256-core Pascal        \\
+Intel Xeon                                                           & x86\_64                                                     & 4                                                            & HIGH                                                        & 8                                                             & -                       \\
+Intel Xeon + GPU                                                      & x86\_64                                                     & 4                                                            & HIGH                                                        & 8                                                             & Nvidia Turing GPU       \\ \hline
+\end{tabular}
+\caption{Table showing the simulated devices available in FaaS-Sim/Ether. CPU frequency bin sizes are shown in Table \ref{tab:ether_bins}}
+\label{tab:ether_devices}
+\end{table}
+
