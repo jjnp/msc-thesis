@@ -15,19 +15,35 @@ This means that if a request takes longer to receive its parts need to be kept i
 This is true both for clients sending requests, as well as for upstreams responding to forwarded requests.
 This also holds for the request processing time, or \gls{fet} in serverless computing, as the load balancer needs to at least keep some information of each request in memory while the upstream processes it.
 
-\subsection{Resource Usage Implications}
-
-
-
-
-
-
-
-
-
 
 
 
 % Todo put this in the discussion
 % This effect is also due to the reason that not all nodes have clients close to them, which means that while there are more load balancers present in the system, the number of load balancers actually receiving traffic from clients doesn't change, as clients send traffic to the closest load balancer.
 % We can also show this in the data -> e.g. global high: 50% -> 90 load balancers in use, 100% -> 113 load balancers in use.
+\subsection{Load Balancer Scale}
+Our results show that the scale of load balancers in the system has a significant effect on the system's performance.
+Particularly at the beginning, when the system's load balancers still have to evaluate the performance of each upstream, different scales perform differently.
+Naively speaking, lower numbers of load balancers perform better early on, because they converge to a stable response time sooner, but larger numbers perform better later on, because they tend to be more spread out and thus possess more optimization potential.
+
+While adding more load balancers to the system generally improves the maximum achievable performance, the returns diminish beyond a certain point, as can been seen in the evaluation results in table \ref{tab:lb_scaling_converged_trt}.
+This effect is also due to the reason that not all nodes have clients close to them, which means that while there are more load balancers present in the system, the number of load balancers actually receiving traffic from clients doesn't change, as clients send traffic to the closest load balancer.
+In our globally distributed evaluation topology with roughly 400 nodes and 75 \gls{rps}, for example, 50\% of nodes hosting load balancers (i.e. ~200 load balancers) results in 90 load balancers actually being used by clients. Doubling this number to 100\% of nodes hosting load balancers, only results in 113 load balancer instances actually being used.
+This makes it clear that not only is there a certain number of load balancers beyond which performance improvements diminish significantly, it also shows that this point is dependent on the location of load balancers in the system.
+
+\subsection{Implications}
+The results of our evaluation of both resource consumption and load balancer scale have a number of implications for the design decisions of serverless edge computing systems in regard to how load balancing is handled.
+
+First, we have to assume that for each load balancer in a Kubernetes based system 128MiB of memory should be requested to allow for a safe headroom in case large requests have to be handled, the request rate peaks, or other issues lead to overhead.
+Through the memory consumption, but particularly through the CPU consumption results show that running a load balancer can be a significant task for a smaller, edge-based device.
+
+Secondly, these results make it clear that load balancers need to be scaled and scheduled in a more sophisticated way than is default in Kubernetes and thus in most existing serverless systems.\\
+After a certain point, adding more load balancers yields to massively diminishing returns, making the addition of more inefficient from a resource perspective.
+At which point more load balancers become inefficient depends on the system's priorities and capabilities, and the scaling component is what should continuously evaluate this question.
+The efficiency of the load balancers that are present in the system depends on their location, since a load balancer that receives no traffic is essentially a waste of resources, just as one that receives a lot of traffic, but is located far from clients or upstreams, results in overly distant network transfers.
+This makes the effective placement of load balancers in the system a key component of minimizing the number of load balancer instances needed, and thus the amount of resources consumed.\\
+Particularly at the edge, where resources can potentially be scarce and valuable, this makes a strong case for new scaling and scheduling methods such as the one we present in this thesis.
+
+Lastly, the results of our evaluation show that the number of load balancers in the system can actively be used as a variable to influence the overall performance achieved.
+This potentially gives developers the flexibility to make an informed trade off between the amount of resources consumed by load balancers, and the resulting performance.
+Through this more fine grained control over the system's \gls{qos} could be achieved, and differentiated policies developed to guarantee performance levels compliant with different levels of \gls{sla}.

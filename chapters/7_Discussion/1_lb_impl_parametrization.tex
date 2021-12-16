@@ -1,2 +1,30 @@
 \section{Load Balancer Implementation and Parametrization}
 % 2-3 pages
+\subsection{Choosing the right implementation}
+Our evaluations show that careful consideration is necesssary when deciding on a load balancer implementation.
+Our results show that some implementations can exhibit idiosyncratic behaviour that might be undesirable for the FaaS system in general.
+
+Our implementation considerations were focused in large parts on how the weighted round robin component of our approach is implemented.
+A key result is that the implementation strongly affects how quickly the load balancer is able to discover enough nodes to make an informed load balancing decision and thus converge onto a somewhat stable response time.
+From the results we also learn that a deterministic weighted round robin implementation results in faster discovery of the available nodes, as can also be seen in figure \ref{fig:lb_imp_upstream_coverage}.
+The potential difficulty of load balancers discovering nodes in an acceptable time frame in system with very high numbers of nodes or load balancers also supports our decision to already initialize load balancers with weights of neighboring instances to reduce the time until performance stabilizes.
+
+We can also observe that certain implementations may exhibit behaviour that is specific to heterogeneous edge computing environments.
+An example of such behaviour is the oscillating performance of the \textit{Adapted Classic} load balancing implementation that can be seen in figure \ref{fig:lb_imp_rt_convergence}.
+In this implementation upstreams are always worked through iteratively with faster upstreams being chosen first, before slower upstreams are steadily interleaved in order of their respective weight.
+As a result the performance varies with time going through periods where performance is extremely  good, and ones where performance is comparatively poor.
+When taking the mean response times over a longer period of time though this implementation performs no worse than the \textit{smooth} implementation we chose for our approach.
+
+While intuitively this behaviour might seem undesirable, it also shows potential for more complex application scenarios.
+A load balancer could, for example, try to sample as many upstreams as possible, but only send requests to a certain percentile of the best performing ones.
+This approach is similar to the implementation proposed by Cicconetti, Conti, and Passarella \cite{cicconettiDecentralizedFrameworkServerless2020}, where they propose to only include upstreams whose response time is at most double the minimum response time achieved.
+Sampling in their approach is handled through a generally fixed rate, but with the addition of exponential back off times for upstreams that continuously fail to make the cut.
+
+In terms of additional features, the stratification of upstreams according to their performance would, for example, allow client-specific \gls{qos} policies to be enforced.
+This could be relevant for scenarios where some requests are urgent, while others are not, or where devices have to compete for and bid on their \gls{qos}.
+
+Our results here show that there isn't necessarily a singular, optimal implementation, but that depending on goals and requirements of the system an implementation should be chosen.
+It also shows, once again, that even system components as basic as weighted round robin implementations may behave differently in a heterogeneous environment such as edge computing, and that careful evaluations are necessary when reusing components developed for the cloud at the edge.
+
+\subsection{Choices in parametrization}
+
