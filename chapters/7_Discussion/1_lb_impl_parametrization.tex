@@ -27,4 +27,22 @@ Our results here show that there isn't necessarily a singular, optimal implement
 It also shows, once again, that even system components as basic as weighted round robin implementations may behave differently in a heterogeneous environment such as edge computing, and that careful evaluations are necessary when reusing components developed for the cloud at the edge.
 
 \subsection{Choices in parametrization}
+Parametrization is another area where our results indicate developers can make a choice.
+As figures \ref{fig:lb_hyper_scaling_perfspread} and \ref{fig:lb_hyper_weightrange_scaling} show, the choice of parameters for how and when response times are mapped onto weights has a significant impact on response times.
+The results show that for any given scenario, there can be a whole set of different configurations that would results in the same performance.
+We can, however, also see that parameter choices are not universally wise.
+What results in good performance under one set of circumstances can result in poor performance under another.
+Figure \ref{fig:lb_hyper_reset_q95} shows this well.
+While the configuration with weight updates every 150-200 seconds, and a weight range of 20-30 performs well in the 95th percentile in the range of up to 250 \gls{rps}, once \gls{rps} go beyond 500, it performs much worse.
 
+Because \gls{rps} changes are to be expected in a serverless edge computing system, these results indicate that load balancers potentially have to dynamically adapt their parametrization to keep performance as high as possible.
+Our results also show that the higher the \gls{rps} a load balancer experiences, the smaller the set of configurations with near optimal performance becomes.
+This is particularly relevant to scenarios with high load and strict \gls{sla} policies, since those circumstances would be most affected by suddenly worsened performance due to high \gls{rps} numbers.
+While our experimentation in this area is not extensive enough to arrive at definitive conclusions, it suggests that scenarios in which \gls{rps} varies highly requires very careful investigation of the impact of parametrization.
+
+
+% large effect of parametrization fig 6.5
+% interestingly optimal parametrization not static
+% depending on scenario performance will vary -> rps is one such variable! likely to change
+% again potential for QoS things
+% the higher the rps the fewer good configurations there are -> the stakes are higher
