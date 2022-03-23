@@ -1,4 +1,25 @@
 % target: 4ish pages
+
+% Philipps DA: 1p intro, 1p per RQ, 1p future work
 \chapter{Conclusion}
-\include{chapters/8_Conclusion/1_research_questions}
-\include{chapters/8_Conclusion/2_future_work}
+Edge computing has been proposed as a new computing paradigm to address the computational needs of new applications such as real-time cognitive assistance, large scale analytics from \gls{iot} sensors, or deep learning based image analysis on resource constrained devices.
+Edge computing brings with it a number of significant implementation challenges.
+In particular, edge computing environments are heterogeneous in hardware, software and networking conditions, featuring drastically different hardware, various operating systems, and a wide range of network conditions.
+In addition to the system itself being heterogeneous, the surrounding conditions can be highly dynamic with request rates, clients, running applications, and the very structure of the system changing over time, in some scenarios even very quickly.
+
+Currently, this complexity needs to be resolved by system developers themselves, which is not only very difficult, but is typically implementation-specific and thus not efficient in the long run.
+Serverless computing has been proposed as an abstraction layer on top of edge computing systems with the goal of alleviating the need to deal with this complexity for developers.
+Instead, the serverless edge computing framework is supposed to handle the tasks of scheduling and scaling functions, as well as routing them in such a way that the requirements of the application are fulfilled.
+While serverless systems have been adapted to be edge-capable, there are some challenges that remain.
+Network bound workloads in particular are an area where the performance of serverless edge computing systems was not in line with expectations.
+
+This is the area of serverless edge computing this work aims to improve upon.
+We perform an initial analysis of the load balancing component of the serverless system, which we suspect is the key component that needs to be adapted for network bound workloads to perform better.
+Based on these results we propose to improve load balancing for serverless edge computing through two adaptations.
+First, our approach changes the operating logic of the load balancer itself, moving away from the simple round robin load balancing current systems default to, towards a weighted response time implementation that tunes and adapts weights dynamically based on a least response time logic.
+Second, we propose an osmotic pressure based approach to scaling and scheduling load balancer replicas, giving load balancers their own scaling and scheduling logic separate from the one regular serverless functions use, which allows the load balancer scheduling to consider the location of both function replicas and clients.
+
+Results show that our approach not only significantly improves response times of network bound workloads, but that it also opens up future opportunities for sophisticated deployment scenarios that have more differentiated performance requirements.
+
+\input{chapters/8_Conclusion/1_research_questions}
+\input{chapters/8_Conclusion/2_future_work}   

@@ -1,5 +1,5 @@
-\section{Load Balancer Resource Usage}
-\subsection{Resource Evaluation Setup}
+\subsection{Load Balancer Resource Usage}
+\subsubsection{Resource Evaluation Setup}
 % 2 pages -> got 4
 The goal of these experiments is to understand the resource consumption one can expect from a load balancer in the context of serverless edge computing.
 Using the traces of these experiments we implement the load balancers within the serverless simulator as close to reality as possible, thus making sure the simulation results are more representative.
@@ -40,7 +40,7 @@ Lastly for the request load we decided to test a range of different loads.
 To do this in a simple and presentable way we send requests along a pattern, which steadily increases the amount of requests sent from 0 to 250 requests per second over a period of 300 seconds, then continuously sending 250 requests per second for 60 more seconds before stopping completely.
 
 Apart from the evaluation of different types of devices we performed another test with the same request pattern, but one time with the previously used response time of 20ms and once again with a response time of 250ms to see whether the response time of the upstreams makes a difference to the load balancer resource consumption.
-\subsection{Observed Resource Consumption}
+\subsubsection{Observed Resource Consumption}
 Our results show that the resource consumption of load balancers of this class is, generally speaking, quite moderate.
 At a rate of 250 requests per seconds, a substantial load, CPU utilization ranges from 4,3\% to 34\%, while memory consumption is between 12 and 59MiB.
 The results at 250 requests per second can be seen in Table \ref{tab:resource_eval_results}.

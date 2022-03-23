@@ -23,12 +23,18 @@
 % 5) LB hyperparameter tests
 % 6) the osmotic stuffs?
 
-\include{chapters/6_Evaluation/1_initial}
-\include{chapters/6_Evaluation/2_lrt_implementations}
-\include{chapters/6_Evaluation/3_lb_parametrization}
-\include{chapters/6_Evaluation/4_lb_resource_usage}
-\include{chapters/6_Evaluation/5_edge_intelligence_topo}
-\include{chapters/6_Evaluation/6_lb_scale}
-\include{chapters/6_Evaluation/7_osmotic}
-\include{chapters/6_Evaluation/8_optimization_aggressiveness}
-\include{chapters/6_Evaluation/9_osmotic_dynamics}
+\input{chapters/6_Evaluation/1_initial}
+
+\section{Load Balancer Implementation and Parametrization}
+\input{chapters/6_Evaluation/2_lrt_implementations}
+\input{chapters/6_Evaluation/3_lb_parametrization}
+
+\section{Resource Usage and Load Balancer Scale}
+\input{chapters/6_Evaluation/4_lb_resource_usage}
+\input{chapters/6_Evaluation/5_lb_scale}
+
+
+\section{Osmotic Scaling and Scheduling}
+\input{chapters/6_Evaluation/6_osmotic}
+\input{chapters/6_Evaluation/7_optimization_aggressiveness}
+\input{chapters/6_Evaluation/8_osmotic_dynamics}

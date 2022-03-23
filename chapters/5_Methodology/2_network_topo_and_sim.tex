@@ -20,7 +20,7 @@ To more accurately simulate how networks behave in real life, the latency of a l
 To simulate network transfers Ether uses a flow-based simulation.
 The transfer of a request from one node to another is considered a flow.
 For each flow two steps are simulated: TCP connection establishment, and data transfer.
-TCP connection establishment is assumed to be equal to $ 3 \cdot \text{latency}$ of the route the flow takes, based on the three-way SYN, SYN-ACK, ACK handshake of the TCP protocol.\\
+TCP connection establishment is assumed to be equal to $ 3 \times \text{latency}$ of the route the flow takes, based on the three-way SYN, SYN-ACK, ACK handshake of the TCP protocol.\\
 The data transfer is where the flow simulation component is used.
 Each flow consists of a number of hops, connected by links.
 Each of these links has a set latency, bandwidth, and potentially a number of other flows currently being transferred.

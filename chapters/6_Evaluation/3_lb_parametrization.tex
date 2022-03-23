@@ -1,4 +1,4 @@
-\section{Load Balancer Parametrization}
+\subsection{Load Balancer Parametrization}
 % with graphics 2 pages -> with graphics got 5-6 pages.
 With this range of experiments we set out to better understand the effects different parameters have on a load balancers performance.
 We then continue to use this information to make an informed decision for the load balancer parameters in subsequent experiments.
@@ -10,7 +10,7 @@ Specifically, we want to understand the relationship between the following load 
     \item \textbf{Current Weight Reset:} whether or not it makes sense to reset the current weights of the load balancers when the weights are changed
 \end{enumerate}
 
-\subsection{Setup}
+\subsubsection{Setup}
 
 Since previous experiments have shown that the impact parameter changes can have are at times hard to predict, we decided to perform this evaluation using a grid-search, meaning that we rely on trying a large number of permutations to find patterns in their behaviour.
 To test these settings we do not rely on the full FaaS-Sim environment, but rather perform isolated tests with a single load balancer and less sophisticated function and network simulations.

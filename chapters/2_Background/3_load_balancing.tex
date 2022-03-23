@@ -1,9 +1,9 @@
 \section{Load Balancing}
-Load balancing refers to the concept of distributing the load, which can be any arbitrary task, but is typically a web request, between different server in such a way that they are balanced.
+Load balancing refers to the concept of distributing requests between different servers in such a way that the amounts of requests per server are balanced.
 It is a necessary component of a system where a single instance cannot service all requests, and thus multiple instances are used to keep performance levels acceptable.
-What exactly constitutes a balanced distribution can depend on one's objectives, but typically a balanced distribution is one that maximizes overall system performance over the available servers\cite{cardelliniDynamicLoadBalancing1999a}.
+A balanced distribution can depend on one's objectives, but typically aims to maximize overall system performance over the available servers\cite{cardelliniDynamicLoadBalancing1999a}.
 
-While load balancer type system components are ubiquitous in our modern computing environment, in the context of this work we focus solely on web load balancers.
+While load balancer type system components are ubiquitous in our modern computing environment, in this work we focus solely on web load balancers.
 From the perspective of the OSI network reference model\cite{dayOSIReferenceModel1983}, load balancers typically work on the transport layer (level 4), or the application layer (level 7).
 Because serverless frameworks like OpenFaaS differentiate between functions based on HTTP request data, only application level load balancing is of concern for us in the context of this paper.
 

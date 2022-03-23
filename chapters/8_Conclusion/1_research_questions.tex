@@ -1,1 +1,47 @@
 \section{Research Questions}
+
+\subsubsection{How can current scaling, placement, and routing techniques for load balancers be changed, such that the overall performance of the serverless edge computing system improves?}
+
+In their current state serverless edge computing systems treat load balancers as "just another function", not paying special attention to how they are scheduled and scaled.
+Likewise the routing (i.e. load balancing) decisions themselves are made by algorithms designed for and tested in cloud-centric environments.
+To improve performance, both of these areas have to be adapted to deal with the challenges of the edge computing environment.\\
+To improve routing decisions we move away from simple round robin load balancing, which is incapable of addressing the heterogeneous device capabilities found in edge computing.
+Instead we use a variant of weighted round robin load balancing, which is better suited to deal with the differently performant devices and accordingly differently performant upstreams.
+Because the performance of different devices is not known beforehand, and can change dynamically at runtime we use the observed response time of past requests as a black box metric and stand in for the expected performance of the upstream in question.
+Based on a moving average of these past response times and a least response time logic we assign each of the upstreams their respective weights used by weighted round robin.
+This evaluation of observed response times and weight mappings happens continuously and as a result it can adapt to changing system conditions as well.
+For scaling and scheduling we introduce an approach inspired by the concept of osmotic pressure we call osmotic scaling and scheduling.\\
+The load balancer scaling and scheduling component needs to take into account where in the network client requests are originating from, where function replicas to handle those requests are located, and where load balancer instances are already present.
+To this end we introduce the notion of osmotic pressure.
+For each node that does not already have a load balancer deployed, we calculate a pressure metric that depends on how many requests it would receive if there was a load balancer present, how close the clients sending these requests are, and how close the function replicas required to process the requests are located.
+If the pressure exceeds a set threshold a new load balancer replica is added on that node.
+Likewise a negative pressure is calculated for nodes which are already host to a load balancer instance, where requests that would be more efficiently handled by other running load balancer instances contribute to negative pressure.
+If the pressure falls below the downscaling pressure threshold the load balancer replica is removed.\\
+Through the introduction of these techniques for load balancing, scaling and scheduling the overall performance of the system improves, particularly for network bound workloads.
+
+
+\subsubsection{How much of a performance improvement can be gained from optimizing the scaling,
+placement and routing decisions of load balancers in serverless edge computing
+systems?}
+
+Our initial evaluations show that the diagnosis of load balancer location and load balancing technique was correct.
+In the first evaluation, where we tested the new load balancing implementation and compared a scenario with a centralized round robin load balancer on one hand, and our adapted version running on every node on the other, the mean total response time could be improved by between 81\% and 606\%, depending on the scenario.
+These performance gains hold, albeit in a less dramatic way in our more stringent and realistic evaluation of the osmotic scaling and scheduling component.
+In these tests the results still show an improvement between in mean \gls{trt} between 43\% and 229\% compared to a non-centralized round robin implementation, which corresponds to a reduction of -30\% to -69\% in \gls{trt}.
+The improvements are larger when looking not only at the mean values, but at the different percentiles as well.\\
+The higher the percentile, the bigger the \gls{trt} improvement generally is.
+What this means is that our approach not only improves the performance of the system on average, it also reduces the variance, making the performance gains more reliable.
+The performance gains are realized by having decreased network transfer times between client and load balancer, and load balancer and function replica.
+This is expected and optimizing this part of the response time is the primary implementation goal of the osmotic scaling and scheduling approach we present.
+In addition to improving network transfer times, our approach realizes part of its performance gains via improvements \gls{fet}, which are a result of the load balancing implementation relying on a black box metric that also encompasses \gls{fet} and thus partially optimizing for it.
+
+\subsubsection{How do edge optimized scaling and placement techniques for load balancers, including the load balancing techniques themselves, affect the overall system behaviour
+and characteristics in regard to their key performance metrics?}
+
+Our approach also has effects on the system beyond its improvements in \gls{trt}.
+Notably it positions load balancers efficiently, achieving performance that would require the deployment of more load balancer instances when using current scheduling methods.
+This is particularly relevant as our experiments with real hardware show that depending on the device and operating system used memory and CPU consumption can vary significantly.\\
+In addition we can observe that our approach slightly reduces the number of function replicas deployed in the serverless system, when using the default scaling methodology of OpenFaaS\cite{openfaas} as a representative example of serverless frameworks in general.
+While these reductions in function scale are too small to be considered a stable feature of our approach, it indicates that it can likely be integrated into serverless frameworks without adverse effect on function scale.\\
+As one would expect based on the faster network transfer times, our approach reduces the share of requests that get routed to far-away function replicas.
+In an evaluation with three distinct cities far apart from each other our approach routes only 1.9\% of requests to a function replica outside the city, compared to the 65.2\% of round robin based load balancing currently used in serverless frameworks.

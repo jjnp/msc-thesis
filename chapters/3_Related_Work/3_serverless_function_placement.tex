@@ -17,6 +17,8 @@ Building on a multi-objective function they propose that nodes create deployment
 Local solutions are then cooperatively combined to make the actual scheduling decisions.
 
 Ma et al.\cite{maContainerMigrationMechanism2020} propose the usage of ant colony optimization to migrate application instances from overloaded to underloaded regions of the edge, such that overall the system is as balanced as possible.
+In their notion of balance their approach is in part conceptually similar to the osmotic scaling and scheduling we propose.
+The significant difference is that our view of the system is comparatively reduced and thus simple to calculate, while Ma et al. take into account a much larger number of variables, making the use of a complex search algorithm like ant colony optimization necessary.
 
 Gao et al.\cite{gaoWinningStartingLine2019} approach client assignment and service placement in a joint way.
 In their view of mobile edge computing, they consider clients attached to ingress points to the network, which are potentially subject to network congestion.

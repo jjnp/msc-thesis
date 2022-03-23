@@ -1,0 +1,15 @@
+% target: 8-10ish pages
+\chapter{Methodology}
+The goal of this chapter is to give an overview of the general evaluation setup and methodology behind our approach, as this ties together the relation between our approach and its evaluation.
+The approach we present is the result of several iterations of design and experimentation, as one would expect in the field of distributed systems engineering.
+
+First, we give an introduction to FaaS-Sim, the serverless edge computing simulator we use and extend and the devices included in the simulation.\\
+Next we dive into more detail about the simulation setup by describing the serverless functions deployed, along with their performance characteristics.
+In this section we also describe how the network simulation part of the simulator is implemented and how the network topologies used in the evaluations are structured.\\
+From there we describe how empirical measurements and experiments are integrated in FaaS-Sim to improve its representation of real serverless systems.\\
+Lastly, we conclude this chapter by outlining the metrics and \glspl{kpi} captured in our simulation experiments.
+
+\input{chapters/5_Methodology/1_simulating_serverless}
+\input{chapters/5_Methodology/2_network_topo_and_sim}
+\input{chapters/5_Methodology/3_empirics_in_simulations}
+\input{chapters/5_Methodology/4_captured_metrics}

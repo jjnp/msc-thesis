@@ -1,2 +1,20 @@
 \section{Problem Statement}
 % 1 page or less
+
+% re-state problem of bad performance
+
+% re-state our approach of improing the load balancer and placement issue
+
+% what problems do we need to solve to improve them
+% i.e. LB needs to be location aware, potentially FET aware, self-adapting to changes
+% placement also needs to be location and load aware. Needs to be aware of the different functions, and needs to be aware of the relative differences between topology regions
+
+Existing serverless and serverless edge computing frameworks still perform worse than expected in certain regards, particularly for network bound workloads where network transfers make up the dominant share of the total processing time\cite{skippy}.
+This is due to the fact that these frameworks have been built for cloud based environments where the link latency between nodes is small, and the hardware of the nodes themselves homogeneous.
+Using these frameworks in an edge scenario as-is leads to requests taking inefficient routes through the network and being processed by a random node, which leads to unnecessarily long network and processing delays.
+
+Based on the results of our initial evaluation we propose that the load balancer implementation, as well as how load balancers are scaled and placed throughout the system needs to be adapted for the edge environment in order to improve the performance of network bound workloads.
+
+For the load balancer implementation itself this means that is has to take into account the heterogeneous nature of nodes the serverless system, the different networking conditions, variable client locations and request rates, as well as the dynamic aspect of edge computing.
+The requirements of the load balancer scaling and scheduling component are similar, having to integrate the location of clients, function replicas, existing load balancers, and the request rate into its decisions.
+Lastly, both components must be able to handle dynamically changing system conditions, which entails that the makeup of network, devices and clients cannot be known beforehand.

@@ -1,11 +1,11 @@
-\section{Least Response Time Load Balancing Implementation}
+\subsection{Least Response Time Load Balancing Implementation}
 % got 2,5 pages
 With these experiments the goal is to better understand how the implementation details of the load balancing solution affect overall performance.
 The previously performed initial evaluation revealed some potentially counter-intuitive behaviour, so to better inform our proposed implementation these experiments evaluate different implementation patterns.
 
 An implementation of least response time load balancing is split in two parts: The gathering of response time data, and the conversion of that data into load balancing decisions.
 As we discussed in our approach, we convert the response time data into weights, which are used as inputs to a weighted round robin load balancing implementation that ultimately makes load balancing decisions.
-\subsection{Setup}
+\subsubsection{Setup}
 With these experiments our focus lies on these implementations of weighted round robin.
 In particular we evaluate four different implementations of weighted round robin:
 \begin{itemize}
@@ -19,7 +19,7 @@ We simulate a least response time load balancer with each of these implementatio
 Weights are updated every 15 seconds, except for the smooth weighted round robin implementation which is updated every second, since this is a core benefit afforded by the implementation we want to test explicitly.
 The weight range for each implementation is [0;10] and response times get mapped linearly, i.e. using a scaling factor of 1.
 
-\subsection{Results}
+\subsubsection{Results}
 
 \begin{figure}
     \centering

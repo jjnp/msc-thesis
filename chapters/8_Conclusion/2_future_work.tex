@@ -1,1 +1,16 @@
 \section{Future Work}
+
+% future work idea: it is relatively obvious that there is a non-linear relationship between load balancer scale and the performance limit they provide. The question now is how the linearity and scales here are influenced by the network itself. Can there, based on the network structure, be a way to determine the "optimal" number, or predict the impact sufficiently accurately that one can derive the "correct" scale given certain SLA requirements?
+
+% how does information sharing between load balancerns contribute to their performance, and how can this be solved on an engineering-level to avoid exponential growth in data transfer sizes? also: how would the stochastic congestion game idea factor into this?
+
+Our work provides a basis on which future work can be built, both to address limitations of our approach, as well as to further the capabilities of serverless edge computing.
+This section provides a list of some of the most important areas for future work.
+\begin{itemize}
+    \item A continued evaluation of our approach in different deployment scenarios and network topologies could give further insight into its advantages and limitations. Based on this our approach could be changed to bring it closer to a state where it can reliably be used in real-world deployments.
+    \item Building on our results, that show how response time percentiles and general service levels are influenced by load balancer scaling and implementation, a more sophisticated approach could be developed that takes into account and optimizes for different \gls{qos} levels on a per-function basis.
+    \item In keeping with the previous point about different \gls{qos} levels, our approach could be modified to explicitly model the requirements of functions and then automatically tune its parameters accordingly. This would stand in contrast to current, statically configured implementations. In addition the need to do so is indicated by our experimental results, which show that for different environments different configurations are required to achieve optimal performance.
+    \item Joint scheduling and scaling of functions and load balancers offers the potential for additional performance gains, where the information about required resources gathered by the load balancer could help make more informed decisions about function replica scale and location.
+    \item Lastly, the topic of standardized edge computing scenarios for benchmarking remains a worthwhile area to improve upon. While there is effort to develop systematic benchmarks for edge computing, for example EdgeBench\cite{edgebench}, there is much to be done in terms of modelling network topologies and dynamically changing environments. Such a suite of standardized benchmarks and deployment scenarios would help to make competing approaches more directly comparable, and results more transparent.
+    
+\end{itemize}

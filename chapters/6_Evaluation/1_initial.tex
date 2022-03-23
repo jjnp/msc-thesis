@@ -7,16 +7,16 @@ We also hoped to get a first impression of how large of a performance uplift mig
 The overarching question we want to answer with these experiments is whether more complex load balancing, such as least response time load balancing, and moving the load balancers closer to the clients leads to overall performance improvements.
 We also want to understand what impact on performance we could expect from implementing only one of the two proposed improvements.
 
-\subsection{Setup}
+\subsubsection{Setup}
 To answer these questions we test four load balancer configurations in three different scenarios.
-\subsubsection{Load Balancer Setup}
+\paragraph{Load Balancer Setup}
 To assess the role of the load balancer implementation, we compare typical round robin load balancing, as it is found in current serverless frameworks such as OpenFaaS\cite{openfaas} and their underlying container orchestration service\cite{kubernetes}, and least response time load balancing to represent more sophisticated load balancing decisions.
 
 Since this experiment is performed before the others we rely on an initial parametrization and implementation, which differs slightly from the one we ultimately propose.
 The weight range is [1;10], with a scaling factor of 1, and a weight update interval of 15 seconds.
 Furthermore we rely on a different implementation of weighted round robin\cite{wrr-kblinux}, which is functionally very similar but works through upstreams iteratively by their weight, instead of the more intermixed upstream selection we describe in our approach.
 In this implementation, there is also a notion of current weights\cite{wrr-kblinux}, and they are reset every time the weights are updated.
-\subsubsection{Load balancer scaling and placement}
+\paragraph{Load balancer scaling and placement}
 For the load balancer location we evaluate the two most extreme scenarios: A single centralized load balancing instance which serves all client requests, and a maximally distributed scenario in which every single node in the system also hosts a load balancer instance.
 
 This gives us four load balancer configurations:
@@ -34,11 +34,11 @@ These topologies are oriented on a smart city/urban sensing type application.
     \item Nation
     \item Global
 \end{itemize}
-\subsubsection{City}
+\paragraph{City}
 In this scenario the cluster is set to a size of 100 nodes, which are assumed to all be located in the same city, meaning network latencies between nodes are small.
 The city features a data center which consists of about 50\% of the total node count, and features nodes with high compute capability, partially with GPU acceleration.
 The rest of the nodes are assumed to be distributed across the city closer to clients, and consist to two thirds of medium performance nodes, and one third low performance nodes.
-\subsubsection{Nation}
+\paragraph{Nation}
 This scenario features a larger cluster that spans over three cities.
 Each of those cities features the same relative node distribution as the previous scenario.
 We chose the USA as our example, as using a small country such as Austria would not provide significant enough latency differences between cities.
@@ -49,39 +49,32 @@ While nodes within the same city feature extremely low network latency, nodes ac
 
 The network latencies between the cities are taken from Wonder Network\cite{wondernetworkGlobalPingStatistics}, and can be seen in Table \ref{tab:initial_nation_pings}
 
-\subsubsection{Global}
+\paragraph{Global}
 The global scenario once again features three cities, but they are distributed not just within a single country, but across the globe.
 The cities are New york with 100 nodes, London with 100 nodes, and Sydney with 150 nodes.
 Network latencies can be seen in Table \ref{tab:initial_global_pings}.
 
-\subsubsection{Clients}
+\paragraph{Clients}
 Each scenarios features a client ratio of 0.6, meaning there are 60\% as many clients as there are compute nodes.
 Clients are assumed to be on the edge of the network and thus closest to the medium and small sized compute nodes.
 
-\subsubsection{Functions and request load}
+\paragraph{Functions and request load}
 We used our basic three function deployments for these experiments.
 To isolate the system behaviour on the effect of load balancer implementation, scale and placement we disabled the normal function scaling behaviour.
 Instead the system immediately sets a fixed scale for each function such that for each node in the entire cluster a function replica is started.
 We consider the functions to be of equal importance, thus each function starts up $\frac{n}{3}$ replicas where $n$ is the total number of nodes.
 Lastly all experiments simulate a timeframe of 1000 seconds, and feature a request load of 75\gls{rps}.
 
-\subsection{Results}
+\subsubsection{Results}
 
 \input{tables/initial_results}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{graphics/graphs/initial_eval_pdfs_3x3.png}
-    \caption{Kernel Density Estimate of a single experiment run. Shown data can be interpreted as probability density functions. Data is visualized for \gls{trt}, \gls{fet} and the time incurred through network transfers.}
-    \label{fig:initial_eval_pdfs}
-\end{figure}
 
 Since the experiments feature a significant degree of random sampling in their simulation, we ran each experiment 10 times.
 The results presented here are those of a single experimental run, since no runs showed significantly different results.
 Table \ref{tab:initial_eval_results_mean} shows the percentage improvement different load balancer types and scales give when compared to the default centralized round robin.
 Here the mean values of the \gls{trt}, \gls{fet}, and network times between client and load balancer, and load balancer and function replica are shown.
 Both a more sophisticated approach to load balancing and moving load balancer instances closer to the clients shows significant performance improvements, but across the board only the combination of these two improvements (i.e. least response time on all nodes) gives the most significant performance uplift.
-We can also see that least response time load balancing not only improves network times between the load balancer and the function replica, but also decreases \ref{fet}.
+We can also see that least response time load balancing not only improves network times between the load balancer and the function replica, but also decreases \gls{fet}.
 In addition we observe that the performance improvement given through distributed least response time load balancing becomes larger in geographically more distributed scenarios.
 
 Table \ref{tab:initial_eval_results_q50} shows the difference between the median of these metrics.

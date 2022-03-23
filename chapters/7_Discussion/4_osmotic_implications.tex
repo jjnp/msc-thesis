@@ -1,2 +1,23 @@
 \section{Implications of Osmotic Scaling for Serverless Edge Computing}
-% 3 pages
+% 2-3 pages
+
+Finally we have to ask what implications our approach and the general idea of osmotic scaling and scheduling have for the area of serverless edge computing.
+Osmotic computing has been proposed as a potential solution to provide an effective solution to the complex task of cloud-edge integration\cite{osmotic-middleware-rausch}.
+Specifically it provides a promising approach for dealing with changing system conditions, and environments which are not known beforehand.
+Our experiments suggest that withing the area of serverless computing, particularly for scaling and scheduling load balancers, osmotic approaches offer tangible benefits.
+Our evaluations show that an osmotic approach allows us to react to changing system conditions well, and that even though the environment is unknown beforehand ,comparatively decent scaling and scheduling decisions can be made that result not only in better performance than current serverless solutions offer at the edge, but also increased resource efficiency through reduced scales.
+
+Our evaluations also show however, that our approach does not yet provide a solution that fits every serverless edge computing scenario and use-case.
+While the design of our approach aims to rely as little as possible on a-priori information about the system, the results of our evaluations show that in certain cases this type of a-priori knowledge is required to have consistent behaviour in different scenarios. 
+The size of the system, for example, is one such factor that needs to be known beforehand so that the scaling and scheduling parameters can be set in a way that the system performs according to the scenario's requirements.
+
+This inherent challenge between a need for a-priori information about the system on one hand, but edge computing systems being dynamic and thus changing in nature on the other suggests that a static parameter choice might never work in a sufficiently predictable way.
+Instead, a self-adapting system that tunes the parameters of the system in real time might result in more predictable behaviour across more scenarios.
+
+In addition to the topics explicitly tested in the experiments we would like to briefly outline other aspects of osmotic scaling and scheduling for serverless edge computing that should be investigated prior to real-world deployment.\\
+First, it might be beneficial to create a simplified heuristic version of the pressure calculation. Depending on the size of the serverless system, the computational effort to perform these calculations in short intervals could start to be a limiting factor on how quickly the scaler and scheduler can react to changes in the system.
+This would be particularly true of highly dynamic scenarios, as these make solutions such as caching and re-using certain parts of the computation infeasible.\\
+Second, our approach does not yet include one of the potentially most important aspects of serverless edge computing: Different priority and \gls{qos} levels.
+With the heterogeneous nature of edge computing scenarios also come additional challenges for providing certain \gls{qos} levels.
+In edge computing, certain resources might be more precious than others and effective usage is required to achieve the best performance possible.
+For our osmotic scheduling approach this means that these kinds of priorities and goals will need to be included in the pressure calculation, if the scaling and scheduling of the system should take them into account.

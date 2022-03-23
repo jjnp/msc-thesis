@@ -1,0 +1,34 @@
+\subsection{Performance of Osmotic Scaling and Load Balancing}
+% 2 pages
+With this experiment we want to provide baseline performance data for the osmotic scaling and scheduling method we propose. The goal is to show how our proposed solution operates without fine-tuning of parameters, or any other conditions. The experiment should also show how the osmotic scaling and scheduling of load balancers affects other parts of the serverless system, most notably the scaling decisions of regular functions.
+\subsubsection{Setup}
+Our experiment setup for these evaluations is once again based on the serverless edge computing simulator we also used for the initial evaluations. To stay consistent we used the same network topologies from the previous experiment that investigated the impact of load balancer scale on the system, meaning we assume clients to typically be connected via a mobile network, and compute resources to be distributed on the edge. The three topologies we tested are once again one scenario with a single city, one with three cities on the same continent, and one with three cities distributed across the globe. The cities chosen, along with the network latencies between them are the same as in the initial evaluation namely Chicago, New York, and Seattle for the nation-distibuted and New York, London, and Sydney for the globally-distributed experiment. The network latencies between them can be seen in tables \ref{tab:initial_nation_pings} and \ref{tab:initial_global_pings} respectively.
+
+To stay consistent with the other experiments, and partially due to performance limitations, we once again tested each topology scenario with 25\gls{rps}, 50\gls{rps}, and 75\gls{rps}. As for the osmotic scaling and scheduling component, we set the pressure threshold for scaling up to 0.025 and the downscaling threshold to 0.03, which can roughly be read as the system requiring an expected \gls{trt} improvement of 2.5\% and 3\% to add or remove a load balancer instance on a given node. Bear in mind that this idea of required estimated performance improvement is a mental model to get a more intuitive understanding for the parameters, and is not equivalent to the actual implementation.
+
+The last way in which the experiment setup differs from the previous experiments is that there is a function scheduling component active. While the other experiments purposefully set a fixed scale for each of the serverless functions in the system to avoid it as a confounding variable, these experiments use a dynamic function scaler to show how this type of load balancer scaling and scheduling affects the overall system.
+In concrete terms, we set the simulator up to use a set rate of average requests per function replica.
+The reasoning behind this choice is that OpenFaaS uses the same methodology as a default configuration, which we use as a stand-in example of serverless computing frameworks in general.
+For the osmotic scaling and scheduling parameters we used 0.03 as a scale-up threshold and 0.05 as a scale-down threshold.
+
+\subsubsection{Results}
+
+\input{tables/osmotic_base}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=12cm]{graphics/graphs/osmotic_base_function_scale_by_lb.png}
+    \caption{Total scale of all functions for each load balancer scaling/schedulilng method}
+    \label{fig:osmotic_fx_scale_by_scaling}
+\end{figure}
+
+Table \ref{tab:osmotic_base} shows the results of the experiment.
+In terms of mean \gls{trt} performance the results of our proposed osmotic scaling and scheduling method are similar to those of the fixed scaling LRT reference setup, albeit between 1\% and 45\% worse with most scenarios only between 2\% and 8\% worse.
+Differences between least response time static, and osmotic scaling are less pronounced in the median and 90th percentile \glspl{trt} as can also be seen in Table \ref{tab:osmotic_base}.
+The statically scaled round robin load balancing is, as one would expect, significantly worse.
+It does, however, give a good impression of the performance improvements possible based on our approach in a more complex and realistic deployment scenario than the initial evaluation.
+
+We can also observe that in the city scenario the osmotic scaling and scheduling ends up deploying the more load balancer instances than the static scaling, but that for the nation- and globally-distributed network topology scenarios this patterns is reversed. There the osmotic scaler deploys only about a third of the replicas of the static scaling.
+
+A similar pattern can be seen with regard to function scaling.
+The osmotic scaling leads to between 1\% and 6\% fewer function replicas being deployed. Figure \ref{fig:osmotic_fx_scale_by_scaling} shows how the timing and frequency of scaling decisions are not different between the scaling methods, but osmotic scaling results in slightly fewer function replicas. 

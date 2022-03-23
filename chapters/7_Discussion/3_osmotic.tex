@@ -1,2 +1,82 @@
-\section{Impact of Osmotic Scaling and Scheduling}
+\section{Osmotic Scaling and Scheduling}
 % 2 pages
+
+\subsection{Basic Evaluation}
+From the basic evaluation of how our proposed osmotic scaling and scheduling approach performs we can make a number of important observations.
+First and foremost we see that our approach does indeed work and correctly scales up to at least one load balancer replica per city and schedules these replicas.
+Using similarly low load balancer replica counts with a random scheduling method would likely result in much worse performance, as there would be a significant chance of a city not having an instance deployed.
+This demonstrates how the location aware components of the scheduler successfully identify areas where a significant share of requests originates from and then starts the load balancer replica there, while also taking into account the locations of the required upstream functions.
+
+We can, however, also see from table \ref{tab:osmotic_base} that the osmotic approach doesn't always behave consistently in all scenarios.
+In the city topology based scenarios the osmotic scaler consistently deploys many more load balancers than in other scenarios.
+While this comparatively high replica count results in good performance, the fact that the same scaling and scheduling configuration results in different scaling decisions and levels based on topology highlights that there is no single set of optimal parameters.
+How the scaler is configured and which parameters are right will depend on the level of performance required of the load balancers, and the node topology of the system in question.
+
+What this finding suggests is that for our approach to work in a larger variety of network topologies irrespective of scale we may have to change the way in which osmotic pressure is calculated.
+Currently absolute information with regard to the size of the system is not included at all, as our calculations purely rely on metrics' magnitude relative to each other.
+Right now the size of the system in question is implicitly encoded in the set pressure thresholds.\\
+An example might help to illustrate this more clearly: Assuming a network needs a fixed number of load balancers positioned well in order to achieve a certain performance level.
+If we now have a suitable pressure level to achieve the performance in question, and want to find the configuration for a system many times that size we know that for the larger system overall more load balancers will be required.
+Because the pressure computations themselves work irrespective of the system size, what needs to change is the threshold at which load balancer replicas are scaled up. \\
+In the interest of stabilizing load balancer performance resulting from scaling and scheduling decisions one would need to take a closer look into the relationship between the parametrization,  the make-up of the system, and the resulting performance.
+
+What we could show with these initial experiments is that our osmotic approach is capable of providing tangible performance benefits over the status-quo of serverless edge computing frameworks, although some manual tuning of the configuration is necessary to achieve the best performance possible.
+
+\subsection{Optimization Aggressiveness}
+The basic evaluation of our osmotic approach and the load balancer scale experiment already showed how larger numbers of load balancers tend to result in better system performance, and the performance results of this experiment are right in line with the previous findings.
+Knowing this, the question is how our proposed osmotic scaling and scheduling approach influences the scale, and thus the performance.
+
+As discussed, the primary way the number of load balancers in the system can be influenced is via the pressure thresholds, with lower thresholds resulting in higher replica counts.
+The experiment shows this behaviour clearly, with the lower thresholds indeed resulting in higher replica counts.
+By just how much these thresholds influence the replica counts isn't intuitively obvious though, and as we can see in table \ref{tab:osmotic_scaling_aggressiveness}, the relationship between the threshold and resulting scale is not linear.
+Because the benefits of increasing the amount of load balancer replicas themselves aren't linear either, the results indicate that the tuning of the pressure threshold parameters to meet certain performance criteria is a complex task.
+
+It opens up a more general question of how the configuration complexity in serverless edge computing should be addressed.
+In real deployments there is the potential of strict \gls{sla} requirements for certain functions, which creates the need to predict the system performance based on its topology and parameter configuration.
+Perhaps the way to deal with this complexity is not a systematic evaluation of topologies,  configuration parameters, and their interplay, but rather an agent that dynamically adjusts parameters based on current performance and requirements.
+If performance is insufficient and the workload in question is network bound, 
+this agent could then for example decrease the pressure threshold to spawn more load balancers.
+% for baseline:
+% lb replica count correlated to osmotic
+% shows some limitations of osmotic in that it's not super consistent between city and nation
+% osmotic seems to be pretty efficient -> we couldn't even try lower random scales b.c. of network flow congestion and the simulation then not terminating anymore
+
+
+% for optimization aggressiveness
+% could be used to derive load balancer scale for certain SLAs
+% not exactly easy to derive a parametrization for a target SLA though, it's more like a continuous adjustment until you arrive at the target parametrization
+% higher scales and their resource costs need to be weighed against the benefits -> This is especially true when some node's resources are more precious than another's -> think something is highly specialized AI hardware and the other is just something generic. With the AI blocking that memory and compute is comparatively "expensive"
+
+
+\subsection{Dynamic System Conditions}
+One of the core motivations for our osmotic approach is the necessity for the scaling and scheduling component to adapt to changing system conditions, and in particular to system conditions which are not known beforehand.
+One of these system conditions is which part of the system requests originate from.
+
+Ideally, the osmotic scaling and scheduling component should register rising pressure once requests come from an area where no load balancer is close-by and then schedule one to be deployed there.
+From the results of the experiment we can see that our approach reacts exactly in this way, scaling up and scheduling replicas in each of the cities once requests start originating from there in significant numbers.
+Figure \ref{fig:osmotic_dynamic_lb_replicas} shows this behaviour visually, with load balancer replica counts rising shortly after request rates rise.
+
+While our approach does react to the changing request origin correctly, there are still some points that could be improved.
+First of all, once the origin changes we can still observe a significant spike in response time as is also shown by figure \ref{fig:osmotic_dynamic_trt}.
+In the experiment the request origin changes from one city to the other such that each city is the main request origin at one point.
+Although when requests change origin for the first point the spike in \gls{trt} is comparatively small, going from a baseline of around 140ms to 250ms, the temporary decrease in performance is much more pronounced on the second change, spiking up to 380ms.
+The reason the first spike is so small in comparison is that in the second city already has a load balancer replica deployed.
+Like we describe in our approach, there has to be at least one load balancer present in the system at all times for requests to be processed at all. 
+In this case the load balancer happened to initially be deployed in the second city, shortening the time until response times stabilized again.
+
+There are a number of factors that influence how quickly the system adapts to changes in request origin: The rate at which the system evaluates the osmotic pressure, how quickly a load balancer can be deployed on the selected node, and how quickly the load balancer gathers sufficient information to make informed load balancing decisions.
+The last point in particular, how quickly the new load balancer makes effective decision, can take more or less time depending on how much traffic the new load balancer receives and how well the initial values fit for the location and traffic of the new instance.
+
+Our evaluation also showed some limitations of our approach.
+For extreme cases like the scenario tested in this experiment the de-scheduling portion of our approach does not work as well.
+Since our approach is not based on any a-priori information on the system, and uses the expected relative performance improvement when deciding on whether or not to de-schedule a load balancer, it can sometimes keep instances that are no longer needed.
+Because a load balancer running even though there is little traffic in an area does not deteriorate the system's performance in terms of \gls{trt}, the scaler cannot detect a probable performance improvement from de-scheduling and thus leaves the instance running. 
+This is also visible in the results of this experiment.
+Figure \ref{fig:osmotic_dynamic_lb_replicas} shows how load balancers scale up once requests originate from a new city, but it also shows how the previously scheduled load balancers remain, even though the request share they receive is miniscule compared to the newly scheduled instances.
+
+
+% for dynamic system
+% current limitation: downscaling when there is too little traffic. Currently just not really supported, as removing a LB with no traffic also doesn't improve performance.
+% there is a bit of a delay since first the scaling logic needs to run, and it then takes a bit for the load balancer to be A) deployed and B) converge on decent weights for good upstream performance. Also for C) the approach of initializing with the next closest LB values can also work against us if that LB is farther away an it's configuration would be poor for our case
+%also mention that since london has the seed-load balancer the spike there is relatively speaking pretty small.
+
