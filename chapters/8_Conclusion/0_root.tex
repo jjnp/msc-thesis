@@ -19,7 +19,7 @@ Based on these results we propose to improve load balancing for serverless edge 
 First, our approach changes the operating logic of the load balancer itself, moving away from the simple round robin load balancing current systems default to, towards a weighted response time implementation that tunes and adapts weights dynamically based on a least response time logic.
 Second, we propose an osmotic pressure based approach to scaling and scheduling load balancer replicas, giving load balancers their own scaling and scheduling logic separate from the one regular serverless functions use, which allows the load balancer scheduling to consider the location of both function replicas and clients.
 
-Results show that our approach not only significantly improves response times of network bound workloads, but that it also opens up future opportunities for sophisticated deployment scenarios that have more differentiated performance requirements.
+Results show that our approach not only significantly improves response times and network traffic of network bound workloads, but that it also opens up future opportunities for sophisticated deployment scenarios that have more differentiated performance requirements.
 
 \input{chapters/8_Conclusion/1_research_questions}
 \input{chapters/8_Conclusion/2_future_work}   

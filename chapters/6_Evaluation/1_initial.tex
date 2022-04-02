@@ -51,7 +51,7 @@ The network latencies between the cities are taken from Wonder Network\cite{wond
 
 \paragraph{Global}
 The global scenario once again features three cities, but they are distributed not just within a single country, but across the globe.
-The cities are New york with 100 nodes, London with 100 nodes, and Sydney with 150 nodes.
+The cities are New York with 100 nodes, London with 100 nodes, and Sydney with 150 nodes.
 Network latencies can be seen in Table \ref{tab:initial_global_pings}.
 
 \paragraph{Clients}
@@ -59,9 +59,9 @@ Each scenarios features a client ratio of 0.6, meaning there are 60\% as many cl
 Clients are assumed to be on the edge of the network and thus closest to the medium and small sized compute nodes.
 
 \paragraph{Functions and request load}
-We used our basic three function deployments for these experiments.
+We use our basic three function deployments for these experiments.
 To isolate the system behaviour on the effect of load balancer implementation, scale and placement we disabled the normal function scaling behaviour.
-Instead the system immediately sets a fixed scale for each function such that for each node in the entire cluster a function replica is started.
+Instead the system immediately sets a fixed scale for each function such that on each node in the entire cluster a function replica is started.
 We consider the functions to be of equal importance, thus each function starts up $\frac{n}{3}$ replicas where $n$ is the total number of nodes.
 Lastly all experiments simulate a timeframe of 1000 seconds, and feature a request load of 75\gls{rps}.
 
@@ -69,7 +69,14 @@ Lastly all experiments simulate a timeframe of 1000 seconds, and feature a reque
 
 \input{tables/initial_results}
 
-Since the experiments feature a significant degree of random sampling in their simulation, we ran each experiment 10 times.
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{graphics/graphs/initial_eval_pdfs_3x3_hires.png}
+    \caption{Kernel Density Estimate of a single experiment run. Shown data can be interpreted as probability density functions. Data is visualized for \gls{trt}, \gls{fet} and the time incurred through network transfers.}
+    \label{fig:initial_eval_pdfs}
+\end{figure}
+
+Since the experiments feature a significant degree of random sampling in their simulation as function location, \gls{fet} sampling and client positions are random, we ran each experiment 10 times.
 The results presented here are those of a single experimental run, since no runs showed significantly different results.
 Table \ref{tab:initial_eval_results_mean} shows the percentage improvement different load balancer types and scales give when compared to the default centralized round robin.
 Here the mean values of the \gls{trt}, \gls{fet}, and network times between client and load balancer, and load balancer and function replica are shown.

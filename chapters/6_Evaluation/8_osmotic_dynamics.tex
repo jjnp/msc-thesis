@@ -36,7 +36,7 @@ The periods and changes are set up in such a way that over the course of the 200
 
 First of all, the results show that the osmotic scaling and scheduling component does indeed take the request origin into account when deciding on the number and location of new load balancer replicas.
 Figure \ref{fig:osmotic_dynamic_lb_replicas} shows this in action.
-While originally load balancers are only spawned in one city, because all requests originate from it, once requests start coming from another city another load balancer instance is deployed in that city.
+While originally load balancers are only spawned in one city, because all requests originate from it, once requests start coming from another city, another load balancer instance is deployed in that city, as can be seen around timestamps 00:12 and 00:25 in Figure \ref{fig:osmotic_dynamic_lb_replicas}.
 
 The effect this has on the system at large can also be observed easily, as Figure \ref{fig:osmotic_dynamic_trt} shows.
 Here we can see that while the total response time of the system spikes once requests start to originate from another city, it starts to stabilize and come down to previous levels again once load balancers are present in the new city.

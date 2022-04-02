@@ -1,7 +1,7 @@
 \section{Resource Usage and Load Balancer Scale}
 % 1 page
 \subsection{Resource Usage Patterns}
-Somewhat unexpectedly, the resource usage between different device types differs significantly.
+The resource usage between different device types differs significantly more than one would intuit with the load balancer consuming more than triple the memory on some devices than it does others.
 While the variance in CPU utilization was to be expected, given that the different device's processors vary vastly in terms of core count, frequency, cache size, and power consumption, the difference observed in terms of memory consumption is harder to explain.
 
 As can be seen in table \ref{tab:resource_eval_results}, the memory consumption is split in two groups which differ by a factor of four. Considering that there groups aren't separated by the device's respective processor architecture, we believe that operating system specific reasons are the cause of these variations.

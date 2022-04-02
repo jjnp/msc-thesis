@@ -10,7 +10,7 @@ We test a ranges between 5\% and 100\% of nodes hosting load balancers, which in
 Scheduling load balancer replicas in these scenarios is still left to the Kubernetes scheduler, which means that the location of the node in the topology is not taken into account.
 
 When testing ratios where less than 5\% of nodes hosted load balancers, we ran into frequent occurrences of the simulation not terminating within a feasible time window.
-Upon investigation it turned out that if a load balancer was the only one in the city, or otherwise handled a lot of traffic, but happened to be placed onto a node with very limited bandwidth, the network simulation would take an exceedingly long time.
+Upon investigation it turned out that if a load balancer was the only one in the city, or otherwise handled a lot of traffic, but happened to be placed onto a node with very limited bandwidth, the network simulation would take an exceedingly long time, because the bandwidth bottleneck resulted in each request only receiving a minuscule amount of bandwidth.
 Requests that did go through took so long, that in real-life it would be considered a failed request by timeout.
 We take this as an indication of the inherent problematic of current replica scheduling methods in edge computing, and that the usage of current techniques would simply require an outsized number of load balancers to mitigate the risk of such dysfunctional configurations.
 
@@ -55,3 +55,6 @@ From Table \ref{tab:lb_scaling_converged_trt} we also see that between the diffe
 
 Lastly, we observe that the absolute difference between the time when the system performs best, and when the system performs worst is dependent on topology make up.
 The globally distributed scenario has the potential to perform worse, as there is a greater likelihood of poor request routing decisions resulting in longer network distances.
+
+The results of this experiment are closely related to the pressure threshold for load balancer scaling in our approach.
+Subsequent evaluations explore how different thresholds result in different load balancer scales and thus different system performance with our osmotic scaling.

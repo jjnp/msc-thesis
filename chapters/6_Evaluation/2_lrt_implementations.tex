@@ -11,7 +11,7 @@ In particular we evaluate four different implementations of weighted round robin
 \begin{itemize}
     \item \textbf{Random:} this implementation uses a simple weighted random distribution. It is used as a baseline to compare other implementations to
     \item \textbf{Classic:} this represents the implementation used in the initial evaluation experiment\cite{wrr-kblinux}. It is deterministic and works through upstreams starting with the ones with the highest weight.
-    \item \textbf{Adapted Classic:} the same implementation as classic, but it does not reset its internal state when weights are updated. 
+    \item \textbf{Adapted Classic:} an adaptation from the classic implementation, which allows for weights to be updated on the fly without the algorithm having to be restarted.
     \item \textbf{Smooth:} the implementation described in our approach and also used by nginx\cite{nginx-wrr}. It too is deterministic but alternates between upstreams with high and low weights in load balancing decisions.
 \end{itemize}
 

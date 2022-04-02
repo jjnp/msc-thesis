@@ -8,7 +8,7 @@ In this section we describe our approach to scaling, and scheduling load balance
 To determine the number of replicas and their location we opted for an approach based on \textit{osmotic pressure}.
 Like we outlined in previous chapters, osmotic pressure is a high level concept supposed to facilitate elastic diffusion, elastic diffusion being the process by which a central starting configuration, typically in the cloud, is extended to the edge dynamically based on request load with the goal of providing low latency communication for edge clients\cite{osmotic-middleware-rausch}. 
 The general idea of this approach is that client requests generate pressure on nodes that are close to the clients, meaning that they could potentially host a load balancer instance, and then using this pressure in conjunction with a set threshold to determine both the number of load balancer instances and their locations.
-If pressure at a node exceeds a certain level, because there are a lot of client requests originating close by, a load balancer will the, be placed at the node, thus lowering the pressure.
+If pressure at a node exceeds a certain level, because there are a lot of client requests originating close by, a load balancer will be placed at the node, thus lowering the pressure.
 Conceptually this approach is supposed to create an equilibrium of pressure throughout the system, which results in a well-chosen set of load balancer instances.
 This means that by using an osmotic approach, the scaling and scheduling decisions are effectively made together and cannot be controlled separately.
 
@@ -67,16 +67,15 @@ The important point to consider here is that the time frame needs to be long eno
 
 Lastly, since there are multiple functions in the system, which we generally consider to be of equal importance, we calculate the request share the potential load balancer would receive on a per-function basis.
 Thus we define the \textit{request share} as the following:
-\[ \text{Let }N\text{ be the set of nodes,} \]
-\[ L\text{ the set of nodes with running load balancer instances,} \]
-\[ F\text{ the set of serverless functions,} \]
-\[ \text{and }C\text{ the set of clients.} \]
-\[ \text{Further let } dist(n,c) \text{ be the distance between a node } n \in N \text{ and client }c \in C\text{,}\]
-\[ \text{ and let }requests(c, f) \text{ be the number of requests from client }c \in C \text{ for function }f \in F\]
-\[ \text{Then for each node }n \in N\text{ the assigned clients are defined as} \]
+
+Let $\mathbf{N}$ be the set of all nodes, $\mathbf{L}$ the set of nodes with running load balancer instances, $\mathbf{F}$ the set of deployed serverless functions, and $\mathbf{C}$ the set of clients.\\
+Further let $\mathbf{dist(n,c)}$ be the distance between a node $\mathbf{n \in N}$ and client $\mathbf{c \in C}$, and let $\mathbf{requests(c, f)}$ be the number of requests from client $\mathbf{c \in C}$ for function $\mathbf{f \in F}$.\\
+Then for each node $\mathbf{n \in N}$ the assigned clients are defined as
 \[ assignment(n) = \{c | c \in C \land dist(c,n) < min\{dist(l, c) | l \in L\}\}\]
-\[ \text{Finally the request share for node } n \in N \text{ for function }f \in F \text{ is defined as } \]
+Finally the request share for node $\mathbf{n \in N}$ for function $\mathbf{f \in F}$ is defined as
 \[ rqshare(n,f) = \frac{\sum_{c \in assignment(n)}requests(c,f)}{\sum_{c \in C}requests(c,f)}\]
+
+
 Thus we define the request share of a node for a given function, as the fraction of all requests for that function the node would receive if it had a load balancer instance running.
 \subsubsection{Projected Performance}
 The second major metric that determines the pressure of a given node is what we refer to as the \textit{projected performance}.
@@ -97,16 +96,19 @@ Since we assume that the function replica scale is sufficient to handle the syst
 The reason we are not considering heterogeneity in replica performance is that this factor is not known beforehand, and in addition hard to estimate.
 Finally we add the function distance and client distance together and invert them, since our subsequent calculations require the projected performance metric to have high values indicating good performance, and low values indicating poor performance.
 Making this explicit we arrive at the following formulation for our projected performance:
-\[\text{Let } replicas(f) \text{ be the set of replicas of a function }f \in F\]
-\[\text{Then the client distance for a function }f \in F \text{ and node }n \in N \text{ is}\]
+
+Let $\mathbf{replicas(f)}$ be the set of replicas of a function $\mathbf{f \in F}$.
+Then the client distance for a function $\mathbf{f \in F}$ and node $\mathbf{n \in N}$ is
 \[cldist(n,f) = \frac{\sum_{c \in assignment(n)}dist(n,c) \cdot requests(c,f)}{\sum_{c \in assignment(n)}requests(c,f)} \]
-\[\text{Let }repdist_{n,f} = \langle r_{0}, r_{1}, ... \rangle \text{ be the list of replicas for a function }f \in F \text{ ordered by} \]
-\[\text{their distance to }n \in N \text{ in ascending order such that for each pair } \]
+Further, let $\mathbf{repdist_{n,f} = \langle r_{0}, r_{1}, ... \rangle}$ be the list of replicas for a function $\mathbf{f \in F}$ ordered by their distance to $\mathbf{n \in N}$ in ascending order such that for each pair 
 \[(r_{i},r_{j}) \in repdist_{n,f}^{2}: i < j \implies dist(n, r_{i}) \leq dist(n, r_{j})\]
-\[\text{Then the set of replicas considered is } \]
+Then the set of replicas considered is
 \[replicas(n,f) = \{r_{i} | r_{i} \in repdist_{n,f} \land i < \lfloor rqshare(n,f) \cdot |repdist_{n,r}| \rfloor\}\]
-\[\text{Thus the function distance is }fndist(n,f) = \frac{\sum_{r \in replicas(n,f)}dist(n,f)}{|replicas(n,f)|} \]
-\[\text{Finally the projected performance is }perf(n,f) = \frac{1}{cldist(n,f) + fndist(n,f)} \]
+Thus the function distance is
+\[fndist(n,f) = \frac{\sum_{r \in replicas(n,f)}dist(n,f)}{|replicas(n,f)|} \]
+and finally, the projected performance is
+\[perf(n,f) = \frac{1}{cldist(n,f) + fndist(n,f)} \]
+
 Needless to say slight adaptations of these formulas are necessary for a practical implementation.
 For our simulator based evaluation the formulas are used exactly as we present them here, with the exception that special values are used as placeholders for undefined values, particularly those that result from a division by 0.
 If a node has a request share of 0 for example, the projected performance is simply set to 0.
@@ -151,17 +153,17 @@ Lastly we compare by how much adding a load balancer on this node changes the ov
 This percentage difference is the pressure value we use to make scaling and scheduling decisions in our osmotic system.
 A positive pressure indicates that adding would likely improve performance, while negative pressure indicates that it would likely deteriorate overall system performance.
 Thus we formally define our pressure as follows:
-\[\text{For each function }f \in F \text{ it's relative importance is }\]
+
+For each function $\mathbf{f \in F}$ its relative importance is
 \[importance(f) = \frac{\sum_{c \in C}requests(c,f)}{\sum_{f' \in F}\sum_{c \in C}requests(c,f')} \]
-\[\text{Let the set of tuples of a load balancer node's performance and request} \]
-\[ \text{share for a function }f \in F \text{ be} \]
-\[lbperf_{f} = \{(perf(l,f), rqshare(l,f)) | l \in L\} \]
-\[\text{Then for a function the weighted median performance is } statusquo(f) = weightedmedian(lbperf_{f})\]
-\[\text{Based on this we can estimate the system performance when adding a load balancer on node }n \in N\]
+Let the set of tuples of a load balancer node's performance and request share for a function $\mathbf{f \in F}$ be $\mathbf{lbperf_{f}} = \{(perf(l,f), rqshare(l,f)) | l \in L\}$\\
+Then for a function the weighted median performance is $\mathbf{statusquo(f)} = weightedmedian(lbperf_{f})$\\
+Based on this we can estimated the systems performance when adding a load balancer on node $\mathbf{n \in N}$ as
 \[ addperf(n,f) = (rqshare(n,f) * perf(n,f)) + ((1 - rqshare(n,f)) * statusquo(f))\]
-\[\text{which relative to the status quo performance gives us the pressure per function} \]
+which relative to the status quo performance gives us the pressure per function
 \[ fp(n, f) = \frac{addperf(n,f) - statusquo(f)}{statusquo(f)}\]
-\[\text{Then combined the final pressure of the node is } p(n) = \sum_{f \in F}fp(n,f) \cdot importance(f)\]
+Combined, the final pressure of the node is then
+\[p(n) = \sum_{f \in F}fp(n,f) \cdot importance(f)\]
 
 \subsubsection{Downscaling Pressure}
 Just like we need pressure to determine where load balancers should be scheduled, we also need to decide on conditions which trigger an existing load balancer to be removed.
@@ -182,16 +184,19 @@ At this point we recalculate the projected performance and request share of the 
 Based on this we can then calculate the system performance with the load balancer removed by again using a weighted average over the projected load balancer performances weighted by their request share, with the difference being that the load balancer we potentially remove is no longer counted, and its clients are moved to the next closest load balancer.
 We then have an estimation of system performance with and without the load balancer in question, and go on to calculate their percentage difference.
 This percentage difference tells us by how much removing the load balancer would affect overall system performance in percent, and based on a user defined threshold the scaler then decides to remove or keep each individual load balancer instance.
-\[\text{For a function }f \in F \text{ the pre-removal status quo system performance is }\]
+
+
+For a function $\mathbf{f \in F}$ the pre-removal status quo system performance is
 \[rmstatusquo(f) = \sum_{l \in L}perf(l,f) \cdot rqshare(l,f)\]
-\[\text{If we then remove a load balancer }l \in L \text{ the clients are taken over by another load balancer} \]
+If we then remove a load balancer $\mathbf{l \in L}$ the clients are taken over by another load balancer
 \[l': dist(l,l') \leq min\{dist(l,l'') | l'' \in L \setminus \{l\}\} \implies assignment(l') = assignment(l') \cup assignment(l)\]
-\[\text{Giving us the adapted set of load balancers }L' = L \setminus \{l\} \]
-\[\text{Then the system performance without the load balancer for a function is} \]
+Giving us the adapted set of load balancers $\mathbf{L'} = L \setminus \{l\}$. Then the system performance without the load balancer for a function is
 \[rmperf(l,f) = \sum_{l' \in L'}perf(l',f) \cdot rqshare(l',f) \]
-\[\text{Based on which we can calculate the removal pressure per function as}\]
+Based on which we can calculate the removal pressure per function as
 \[ rmfp(l,f) = \frac{rmperf(l,f) - rmstatusquo(f)}{rmstatusquo(f)}\]
-\[\text{and then combine them to the final removal pressure } rmp(l) = \sum_{f \in F}rmfp(l,f) \cdot importance(f)\]
+and combine the two to the final removal pressure
+\[rmp(l) = \sum_{f \in F}rmfp(l,f) \cdot importance(f)\]
+
 
 \subsubsection{Throttled Scaling}
 In our approach the scaling and scheduling components calculates pressures for all nodes and load balancers, and then makes subsequent scaling decisions, at a fixed interval.

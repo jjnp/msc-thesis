@@ -23,18 +23,54 @@
 % 5) LB hyperparameter tests
 % 6) the osmotic stuffs?
 
+This chapter describes the experiments we conduct as well as their results.
+First, we described the initial evaluation we performed which significantly informed our exact approach.
+It provides first insights into the performance improvement one can expect, and also helps uncover potentially unexpected system behaviour.
+After this initial set of experiments we continue our evaluation with the implementation and parameter configuration of the load balancers.
+From there we continue with experiments related to the effect and cost load balancers have.
+As we described, our serverless function simulator uses real-world values whenever possible to inform its simulation.
+To this end we test the resources used by a single load balancer instance under various conditions on different kinds of hardware.
+Because the overall resource cost load balancers incur is a function of the resource consumption of each instance and the number of instances deployed, we next evaluate load balancer scale.
+Lastly we evaluate our osmotic scaling and scheduling approach.
+We start this evaluation by testing how our osmotic scaling behaves under more realistic system conditions, as well as how it affects the serverless system.
+Next, we test the effect of different pressure thresholds on system performance.
+Combined with previous experiments this informs how scaling parameters result in different levels of performance and load balancer resource consumption.
+The last experiment conducted tests how our osmotic approach handles dynamically changing system conditions, exploring how the scaler and scheduler behave when requests change their origin within the system over time.
+
 \input{chapters/6_Evaluation/1_initial}
 
 \section{Load Balancer Implementation and Parametrization}
+Next, we explore the effect the load balancer implementation and parametrization have.
+Because the edge computing environment features different conditions than the cloud, we evaluate whether or not different implementations of weighted round robin affect the system differently.
+In addition we evaluate the parameter configuration for our load balancing approach, testing if there are certain configurations that perform better than others and trying to see if there are patterns in the parameters' influence on performance.
 \input{chapters/6_Evaluation/2_lrt_implementations}
 \input{chapters/6_Evaluation/3_lb_parametrization}
 
 \section{Resource Usage and Load Balancer Scale}
+After load balancer implementation and parametrization have been evaluated, we now move on to load balancer resource usage and scale.
+The initial evaluation already shows that having distributed load balancers improves system performance.
+With larger numbers of load balancers also come increased resource costs, however.
+To find out the exact resource costs we measure the system resource usage of our load balancing approach on different physical hardware.
+The second factor influencing the overall cost of distributed load balancers is the number of load balancers deployed.
+Intuitively a greater number of load balancers will result in better overall performance, as load balancers will then have a better chance at being close to clients and function replicas.
+In the second evaluation we explore the relationship between load balancer scale and system performance.
+Together these two evaluations give us the insight needed to make an informed trade-off between total resource consumption and system performance.
 \input{chapters/6_Evaluation/4_lb_resource_usage}
 \input{chapters/6_Evaluation/5_lb_scale}
 
 
 \section{Osmotic Scaling and Scheduling}
+
+Finally, we evaluate our osmotic scaling and scheduling approach.
+Our evaluations pursue a number of goals.
+First, we evaluate how our scaling and scheduling approach affects the serverless system, both in terms of performance and in regard to its key metrics.
+Of particular interest is how our approach affects the scaling decisions of functions when simulating the default scaling behaviour of serverless frameworks like OpenFaaS\cite{openfaas}.
+Second, we explore the relationship between the osmotic pressure threshold and the system performance.
+The threshold affects the load balancer scale, which in turn affects the system performance as previous evaluations showed.
+This makes it a key parameter to determine both the performance the system provides and the amount of resources it consumes to run its load balancers.
+Third and last, we evaluate the behaviour of our approach under dynamic system conditions, which are a key facet of edge computing.
+In particular we examine how the system behaves when the location in the network requests originate from changes over time.
+
 \input{chapters/6_Evaluation/6_osmotic}
 \input{chapters/6_Evaluation/7_optimization_aggressiveness}
 \input{chapters/6_Evaluation/8_osmotic_dynamics}

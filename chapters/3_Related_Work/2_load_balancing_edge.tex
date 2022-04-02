@@ -9,31 +9,31 @@ Instead of sampling the queue length of all nodes, which in and of itself can be
 One is drawn from a set of nodes determined to be fast, while the other is drawn from a subset determined to be slow.
 The relative performance level of nodes and thus their categorization is assumed to be a priori knowledge.
 
-In a different approach to address the issue of large clusters, where not all nodes can be sampled, Vargaftik, Keslassy, and Orda propose that load balancers hold a local view of server queues, which isn't fully updated all the time\cite{vargaftikLSQLoadBalancing2020}.
-While all nodes in the local view of the system state are considered for load balancing, only a small subset of all nodes is queried for their actual queue length at a given iteration.
+In a different approach to addressing the issue of large clusters, where not all nodes can be sampled, Vargaftik, Keslassy, and Orda propose that load balancers hold a local view of server queues, which is not fully updated all the time\cite{vargaftikLSQLoadBalancing2020}.
+While all nodes in the local view of the system state are considered for load balancing, only a small subset of all nodes are queried for their actual queue length at a given iteration.
 
 Weng, Zhou and Srikant propose adapted versions of \gls{jiq} and \gls{jsq}, which are \gls{jfiq} and \gls{jfsq} respectively.
-In this adapted version nodes and request types are considered as bipartite graphs, where for each request type only a subset of nodes is able to service it.
+In this adapted version, nodes and request types are considered as bipartite graphs, where for each request type only a subset of nodes is able to service it.
 This represents the reality of a multi-tenant system such as Kubernetes\cite{kubernetes}, where nodes might host multiple applications.
 In \gls{jfsq} and \gls{jfiq}, the potentially heterogeneous performance is nodes is taken into account insofar as the nodes service rate (i.e. node performance) determines which node is chosen in cases there are multiple shortest or idle queues.
 
 
 Karagiannis and Schulte provide research with regard to routing decisions for offloading \gls{iot} computations to the edge of cloud respectively\cite{karagiannisEdgeRoutingUsingCompute2021}.
-They investigate the performance impact between direct, single-hop and multi-hop routing, with special focus on the difference between utilizing the network of the internet service provider or the interconnects cloud providers have between their data centers.
+They investigate the performance impact between direct, single-hop, and multi-hop routing, with special focus on the difference between utilizing the network of the internet service provider or the interconnects cloud providers have between their data centers.
 
-Kogias, Iyer, and Bugnion propose the usage of the TCP redirect feature to change the flow of data between a client, load balancer and selected node\cite{kogiasBypassingLoadBalancer2020}.
+Kogias, Iyer, and Bugnion propose the usage of the TCP redirect feature to change the flow of data between a client, load balancer, and selected node\cite{kogiasBypassingLoadBalancer2020}.
 Instead of returning requests through the load balancer, their approach suggests that nodes should return the response directly to the requesting node.
 This is realized using a Layer 4 load balancer that adds specific information for TCP redirections, and a kernel extension on all participating nodes to enable these TCP features.
 
-Both the paper by Manju and Sumathy\cite{manjuEfficientLoadBalancing2019}, and the one by Zhang et al. \cite{zhangSecureOptimizedLoad2021} propose load balancing through a tiered system, where nodes are categorized as cloud, edge or local (i.e. fog) nodes.
+Both the paper by Manju and Sumathy\cite{manjuEfficientLoadBalancing2019}, and the one by Zhang et al. \cite{zhangSecureOptimizedLoad2021} propose load balancing through a tiered system, where nodes are categorized as cloud, edge, or local (i.e. fog) nodes.
 Requests are preferentially handled by close-by nodes, and clients are migrated and/or requests forwarded to higher tier nodes should it be the most performant option.
-Both approaches assume a priori knowledge of node performance, and employ the concept of a centralized global view of the system to arrive at the best load balancing decisions possible.
+Both approaches assume a priori knowledge of node performance and employ the concept of a centralized global view of the system to arrive at the best load balancing decisions possible.
 
 Beraldi, Mtibaa, and Alnuweiri\cite{beraldiCooperativeLoadBalancing2017} consider edge resources to be grouped into what they call edge data centers, but what could functionally just as easily be considered regions, which have the main property of internal communication delays being extremely low.
 Based on this view of the system, they propose a scheme for forwarding requests to another edge data center, once resources in the current one are overloaded.
 
 Finally, Zhang and Wang\cite{zhangStochasticCongestionGame2021} propose to view load balancing as a task that is undertaken by individual clients.
-Clients are aware that there are different nodes they could offload tasks to, and that other clients exist which also offload tasks.
+Clients are aware that there are different nodes they could offload tasks to, and that other clients exist that also offload tasks.
 As each client seeks to make load balancing decisions for its own requests which minimize response time, a stochastic congestion game is formed\cite{zhangStochasticCongestionGame2021} which they prove has Nash equilibria, that are subsequently the strategy individual clients pursue when choosing upstreams.
-Their approach does not consider network latencies, but takes into account different compute capabilities of upstreams, albeit under the assumption that they are known a priori.
+Their approach does not consider network latencies but takes into account different compute capabilities of upstreams, albeit under the assumption that they are known a priori.
 

@@ -7,10 +7,10 @@ Service placement, in the context of this work, refers to how instances of an ap
 Referring specifically to serverless computing, once the scaler has determined new replicas of a function have to be created, the scheduling component then decides where the new replicas, i.e. the service, should be placed.
 As open source serverless frameworks rely on Kubernetes to handle these types of container orchestration tasks\cite{mohantyEvaluationOpenSource2018}, the Kubernetes scheduler effectively decides where function replicas are placed.
 
-Generally, Kubernetes uses a two stage process for deciding where a new replica is placed.
+Generally, Kubernetes uses a two-stage process for deciding where a new replica is placed.
 In the first step all nodes in the cluster are filtered, to leave only the ones that meet the basic requirements of running the replica in question.
 Typically that includes available CPU time, free memory, and other conditions such as the required ports being available on the node.
 Remaining nodes are then ranked according to a set of default, and optionally custom specified, scoring methods.
 The node with the highest score is then selected to host the new replica.
 
-While this is only a very basic overview, it helps to understand the behaviour of serverless systems, and how our approach could be integrated into open source serverless frameworks.
+While this is only a very basic overview, it helps to understand the behavior of serverless systems, and how our approach could be integrated into open source serverless frameworks.

@@ -14,9 +14,9 @@ For our formulation of the load balancing problem we consider two types of resou
     \label{fig:lb_squares_basic}
 \end{figure}
 To get a more intuitive understanding of the problem we developed a visualization, where resources are depicted as rectangles, where their dimensions correspond to their characterizing attributes. Figure \ref{fig:lb_squares_basic} shows an example of this. The width of the rectangle corresponds to the \textit{load} of the system, in our case measured in \gls{rps}, and the height corresponds to the performance, which since we are concerned about response times is the response time in milliseconds. One should note that, even though maybe counter intuitive, a greater height corresponds to higher performance, which in turn means \textit{lower} response times.
-A core concept of this visualization is the capability of resources to \textit{stretch} or \textit{compress}. This means increasing or decreasing width or height of the resource, while doing the inverse to the other side. The condition is that the total area of the resource, i.e. the product of width and height, must be consistent throughout this process. This is effectively the way in which performance regression is modeled in this visualization, but one should not that this way only works under the condition that performance regression is linear with respect to the load. Luckily this is close to observed real world behaviour, %todo cite this
+A core concept of this visualization is the capability of resources to \textit{stretch} or \textit{compress}. This means increasing or decreasing width or height of the resource, while doing the inverse to the other side. The condition is that the total area of the resource, i.e. the product of width and height, must be consistent throughout this process. This is effectively the way in which performance regression is modeled in this visualization, but one should note that this way only works under the condition that performance regression is linear with respect to the load. Luckily this is close to observed real world behaviour, %todo cite this
 meaning that at least for understanding the underlying problem this visualization holds.
-There are, however, limits to this stretching or compressing resources. From a visual perspective there is a bounding box around each resource, which cannot be exceeded in either height or width. This corresponds to the real world behaviour of workloads not getting faster beyond a certain point, even if resources would be available one one side, and requests simply timing out once responses exceed a certain time limit.
+There are, however, limits to this stretching or compressing resources. From a visual perspective there is a bounding box around each resource, which cannot be exceeded in either height or width. This corresponds to the real world behaviour of workloads not getting faster beyond a certain point even if resources would be available on one side, and requests simply timing out once response times exceed a certain limit on the other.
 \begin{figure}
     \centering
     \includegraphics[width=14cm]{graphics/diagrams/lb_squares_real.png}
@@ -34,7 +34,7 @@ Resources can be conditionally linked. This maps the real world conditions of no
     \label{fig:lb_optimal_load}
 \end{figure}
 
-With this definition we can define the optimization problem an effective edge load balancer is trying to solve. The input to this problem is the given request load arriving from clients. In our visualization his corresponds to a set width. The objective is then to select nodes which when combined have the same width as the incoming client node, while at the same time maximizing the area of the nodes and network links selected. One needs to keep in mind that network links are not selected directly, but are implicitly included if selected nodes depend on them. Figure \ref{fig:lb_optimal_load} shows an example of such an optimal selection.
+With this definition we can define the optimization problem an effective edge load balancer is trying to solve. The input to this problem is the given request load arriving from clients. In our visualization this corresponds to a set width. The objective is then to select nodes which when combined have the same width as the incoming client node, while at the same time maximizing the area of the nodes and network links selected. One needs to keep in mind that network links are not selected directly, but are implicitly included if selected nodes depend on them. Figure \ref{fig:lb_optimal_load} shows an example of such an optimal selection.
 
 If the area is maximized in this optimization problem, response time is minimized, which is the goal a load balancer is trying to achieve.
 
@@ -62,7 +62,7 @@ For our approach we consider \glspl{sla} to be out of scope, and therefore do no
 \begin{figure}
     \centering
     \includegraphics[width=10cm]{graphics/diagrams/lb_weights.png}
-    \caption{Our approach as seen through the described visualization. All nodes are included in the "solution", and their load is determined by the load balancer assigning weights}
+    \caption{Our approach as seen through the described visualization. All nodes are included in the "solution", and their load is determined by the load balancer assigning weights (w)}
     \label{fig:lb_weights}
 \end{figure}
 
@@ -79,11 +79,11 @@ There are a number of important considerations about the practical realization o
 
 \subsection{Implementation}
 As was just outlined our approach uses the response time as a black box metric to get insights into the system, and thus make load balanced decisions based on that information.
-Since this basic idea does not constitute a concrete and testable approach we need to define the implementation details.
+Since the idea of using a black box metric alone does not constitute a concrete and testable approach we need to define the implementation details of how this concept can be applied in practise.
 
-A well-known and simple implementation of this idea is the \textit{least response time} method of load balancing.
+A well-known and simple implementation of this concept is the \textit{least response time} method of load balancing.
 In this approach the server with the lowest average response time gets chosen whenever a request needs to be processed.
-While this certainly works in general there are a few issues with this approach when it comes to serverless edge computing.
+While this certainly works in general, and implicitly solves the proximity issue from Figure \ref{fig:efficient_path}, there are a few issues with this approach when it comes to serverless edge computing.
 First, this approach can be problematic when it comes to co-located functions, as the load is not distributed among upstreams equally.
 This leads to the fastest node being selected until its performance degrades enough for the next best node to be chosen.
 Since there is no coordination that ensures some kind of balance, other functions that happen to be deployed on that node could experience severely hampered performance unexpectedly.
@@ -100,10 +100,8 @@ In addition to effectively summarizing the performance of nodes, the metric need
 To address this, our approach makes use of a moving average with fixed window size.
 We chose to use an exponential moving average since it has a number of advantages over more typical implementations.
 
+Given the previous average value $\mathbf{\bar{r}_{0}}$, the most recent response time $\mathbf{r}$, the time passed since the last request $\mathbf{\Delta t}$, and the windows size $\mathbf{w}$, the new average value $\mathbf{\bar{r}_{1}}$ is
 
-\[\text{Given the previous average value } \mathbf{\bar{r}_{0}}\text{, the most recent response time } \mathbf{r}{,}\]
-\[\text{the time passed since the last request }\mathbf{\Delta t} \text{, and the window size }\mathbf{w}\]
-\[\text{The new average value }\mathbf{\bar{r}_{1}} \text{ is}\]
 \[\bar{r}_{1} = (1 - e^{\frac{-\Delta t}{w}}) \cdot r + e^{\frac{-\Delta t}{w}} \cdot \bar{r}_{0}\]
 
 The most significant advantage of this implementation over ones that use a buffer or a similar data structure, is precisely that complex data structures are not required. For each upstream only two values need to be recorded:
@@ -143,15 +141,22 @@ There are two factors that determine how response times are mapped to weights:
 In our approach we chose to use a fixed range of weights, since this makes sure every upstream is assigned at least a fixed fraction of traffic.
 This guarantees that the response times of all upstreams are sampled eventually, preventing a situation where a significant change in the performance of an upstream goes unnoticed forever.
 The weight of each upstream is determined by it's average response time in the last value and calculated using the following formula:
-\[ \text{Let } \bar{r} \in R \text{ be the set of response time averages, and }\]
-\[ w_{\text{min}} \text{ the minimum weight, } w_{\text{max}} \text{ the maximum weight, then}\]
-\[ \text{the weight for each response time average } w(\bar{r})\text{ is defined as}\]
+
+Let $\mathbf{\bar{r} \in R}$ be the set of response time averages, $\mathbf{w_{\text{min}}}$ the minimum weight, and $\mathbf{w_{\text{max}}}$ the maximum weight. Then the weight for each response time average $\mathbf{w(\bar{r})}$ is defined as
+
 \[ w(\bar{r}) = max\{w_{\text{min}}, \frac{w_{\text{max}}}{(\frac{\bar{r}}{min\{\bar{r}: \bar{r} \in R\}})^{s}}\} \]
-\[ \text{where } s > 0\text{ is a chosen scaling factor }\]
+
+where $\mathbf{s > 0}$ is a chosen scaling factor.
+
+% \[ \text{Let } \bar{r} \in R \text{ be the set of response time averages, and }\]
+% \[ w_{\text{min}} \text{ the minimum weight, } w_{\text{max}} \text{ the maximum weight, then}\]
+% \[ \text{the weight for each response time average } w(\bar{r})\text{ is defined as}\]
+
+% \[ \text{where } s > 0\text{ is a chosen scaling factor }\]
 
 The scaling factor determines how weights correlate to response time. A scaling factor of 1 means that there is a linear relationship between the average performance and the weight.
 Figure \ref{fig:weight_mapping_example} shows the effect different scaling factors have on weight mappings in the weight range of 1-10. Both continuous and integer values are shown, since it depends on the weighted round robin implementation which of the two can be used.
-Based on grid-search experiments we chose a weight range of 1-25, and a scaling factor of 2. (//note to me: these experiments should be expanded a bit and values updated if necessary).
+Based on grid-search experiments we chose a weight range of 1-25, and a scaling factor of 2, although we stress that there is no one optimal parameter choice for all circumstances.
 The experiments that determined this choice will be described in detail in subsequent chapters.
 
 % idea: factor (i.e. deciding on linearity) depends on how strong the link between performance and capacity is. i.e. if strong performance means high capacity, we can assign super high relative weights. Is this even important? Since on paper overload etc. should eventually lead to a balance being achieved, no?

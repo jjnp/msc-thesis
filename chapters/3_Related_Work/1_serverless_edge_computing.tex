@@ -2,9 +2,9 @@
 Glikson, Nastic, and Dustdar first propose serverless edge computing under the name \textit{deviceless edge computing} to the transparent infrastructure abstraction serverless computing provides to the edge\cite{gliksonDevicelessEdgeComputing2017}.
 Nastic et al. exemplify this concept through their proposal of an analytics platform for real-time data using serverless edge computing\cite{nasticServerlessRealTimeData2017}.
 They provide use cases for which such a platform would be beneficial, and present an architectural view outlining the components needed.
-In addition they elaborate on the challenges the edge poses for such a system, particularly heterogeneity in resources and infrastructure, and data management\cite{nasticServerlessRealTimeData2017}.
+In addition, they elaborate on the challenges the edge poses for such a system, particularly heterogeneity in resources and infrastructure, and data management\cite{nasticServerlessRealTimeData2017}.
 Aslanpour et al. round out the conceptual understanding of serverless edge computing by outlining the current vision and challenges of the space \cite{aslanpourServerlessEdgeComputing2021}.
-Among the challenges listed are resources inefficiency, distributed networking, location agnosticism, and a lack of simulation tools\cite{aslanpourServerlessEdgeComputing2021}, all of which we hope to contribute in overcoming with the work presented in this thesis.
+Among the challenges listed are resources inefficiency, distributed networking, location agnosticism, and a lack of simulation tools\cite{aslanpourServerlessEdgeComputing2021}, all of which we hope to contribute to overcoming with the work presented in this thesis.
 
 Rausch et al.\cite{rauschServerlessPlatformEdge} present the architectural considerations necessary to bring \gls{ai} applications to the edge using serverless computing.
 Parts of the life cycle of an \gls{ai} application make their deployment in serverless edge systems a particular challenge\cite{aslanpourServerlessEdgeComputing2021}, which Rausch et al. address by giving application developers more fine-grained control over scheduling decisions\cite{rauschServerlessPlatformEdge}, who can formulate constraints to guarantee deployments of their \gls{ai} application have the resources they need available, even at the edge.
@@ -15,7 +15,7 @@ Cicconetti et al. propose different methodologies for matching up clients with f
 They evaluate different assignment policies, showing through simulations that between static global matching, periodical global matching, and dynamic decentralized matching of clients to replicas, the decentralized version performs best.
 Their work is closely related to ours in that it too explores ingress points at the edge.
 Functionally, their notion of ingress points, or dispatcher as they call it, is identical to what we in this work refer to as a load balancer.
-They do not, however, discuss how these dispatcher components are placed throughout the network, which is a significant difference to our work.
+They do not, however, discuss how these dispatcher components are placed throughout the network, which is a significant difference from our work.
 Additionally, their conceptual view of the system differs from ours in that they assume clients to be assigned to dispatchers by a centralized orchestration component, while we work on the assumption that clients are connected to whichever load balancer is closest at the time of the request being sent.
 In subsequent work Cicconetti, Conti and Passarella\cite{cicconettiArchitecturePerformanceEvaluation2020} explore the idea of building a performance model for function replicas, both in terms of \gls{fet} and network time, to account for the heterogeneity found in edge systems.
 In another paper, which strongly intersects with this work, Cicconetti, Conti, and Passarella explore methods for distributed load balancing\cite{cicconettiDecentralizedFrameworkServerless2020}.
@@ -23,7 +23,7 @@ In their experiments, their proposed version of selective weighted round robin l
 While similar to our approach in that a combination of weighted round robin and least response time is used to make load balancing decisions, our approach differs from theirs in the way upstreams are sampled and weights are assigned.
 They assume a cutoff at twice the optimum performance, meaning upstreams that show a response time more than double the optimum do not receive requests for a given time period, while we do not assume such a cutoff\cite{cicconettiDecentralizedFrameworkServerless2020}.
 Which approach is better in this regard will depend on the particular scenario of the evaluation.
-Another difference is that their weight assignments are linearly proportional to the response time, while in our approach a factor can be defined that determines whether this relationship is linear, logarithmic or exponential.
+Another difference is that their weight assignments are linearly proportional to the response time, while in our approach a factor can be defined that determines whether this relationship is linear, logarithmic, or exponential.
 
 
 Baresi and Mendonca\cite{baresiServerlessPlatformEdge2019} address a range of engineering challenges that need to be solved for serverless edge computing, focusing particularly on function composition, challenges of stateful computations, and potential protocol overhead.

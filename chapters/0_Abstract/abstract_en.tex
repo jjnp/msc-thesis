@@ -1,14 +1,14 @@
 Modern applications depend increasingly on fast response times, special purpose hardware, and dynamic scaling.
-Edge computing offers an attractive computing paradigm to address these needs, but brings with it a number of challenges. Contrary to cloud environments it is heterogeneous and dynamic in both devices and network conditions, which puts an additional burden on application developers.
-Serverless computing, a potential solution to this, is a computing paradigm that abstracts away the underlying infrastructure, alleviating developers from dealing with the associated complexity.
-Current serverless frameworks are built for the cloud and its predictable and homogeneous environment, making adaptations necessary to successfully use it at the edge.
-Numerous research prototypes have been built, but under many conditions, and particularly network bound workloads, the performance is still lacking.
-In this thesis we present an approach that changes the functioning of serverless frameworks and existing research prototypes in a way that drastically improves the performance of network bound workloads.
+Edge computing offers an attractive computing paradigm to address these needs but brings with it several challenges. Contrary to cloud environments it is heterogeneous and dynamic in both devices and network conditions, which puts an additional burden on application developers.
+Serverless computing, a potential solution to this, is a computing paradigm that abstracts away the underlying infrastructure, alleviating developers from dealing with the associated complexity, but existing serverless frameworks are not build for the unique requirements of edge computing.
+To address this, numerous research prototypes have been built, but under many conditions, and particularly for network bound workloads, which are workloads where network transfers make up the majority of the total processing time, the performance is still lacking.
+In this thesis, we present an approach that changes the inner working of serverless frameworks and existing research prototypes in a way that drastically improves the performance of network bound workloads.
+To find out what causes poor performance with network bound workloads we conduct some preliminary experimentation.
 
-Initial experiments show that inefficient load balancer placement and load balancing decisions are one of the biggest performance problems, since those parts of the system aren't edge optimized.
-Thus we propose that these components be adapted to better meet the needs of serverless edge computing.
-To this end we develop a load balancing scheme which assigns weights to nodes according to their performance. Since the performance is not known a priori we use observed response times as an encompassing black-box-metric, based on which we continuously derive current weights.
-To decide on scale and position of load balancers we propose an approach inspired by osmotic computing, where dynamic pressures determine location and scale of load balancers. The pressure itself is a function of request rate, as well as the proximity to clients and serverless function replicas.
+These initial experiments show that inefficient load balancer placement and load balancing decisions are one among the biggest performance problems since those parts of the system are not edge optimized, and their placement and decision making determines each request's path through the network.
+We thus propose that these components be adapted to better meet the needs of serverless edge computing.
+To this end, we develop a version of weighted round robin load balancing. Since the performance is not known a priori we observe response times during runtime as an encompassing black-box-metric, based on which we continuously derive appropriate weights.
+To decide on the scale and position of load balancers we propose an approach inspired by osmotic computing, where dynamic pressures determine the location and scale of load balancers. The pressure itself is a function of request rate, as well as the proximity to clients and serverless function replicas.
 
 Evaluations show that compared to the current default of centralized round robin load balancing our approach reduces mean response times by between 30\% and 69\%, depending on the evaluation scenario.
-Aside from performance benefits, it is also able to deal with the dynamically changing system conditions found in edge computing environments, and utilizes resources in a more efficient manner than previous methods.
+Aside from performance benefits, it is also able to deal with the dynamically changing system conditions found in edge computing environments and utilizes resources in a more efficient manner than previous methods.

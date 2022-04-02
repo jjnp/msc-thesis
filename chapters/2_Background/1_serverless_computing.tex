@@ -3,18 +3,20 @@
 This section aims to give an overview of serverless computing.
 Readers who are well-versed within the matter can feel free to skip this introduction, and reference it only when needed
 \subsection{What serverless computing is}
-Serverless computing, often also referred to as \gls{faas}, emerged as a new computing paradigm in the context of cloud computing.
+Serverless computing emerged as a new computing paradigm in the context of cloud computing, which delegates infrastructure provisioning and configuration to the cloud provider to alleviate software developers from that burden.
+\gls{faas} is one of the most prominent types of serverless computing products on offer.
+It allows developers to specify serverless functions, which are then deployed and scaled by the cloud provider.
 It is a way in which software developers architect, develop, and deploy applications that is dramatically different from more traditional approaches.
 In traditional approaches, such as microservice architectures, an application is partitioned into small components which can be scaled and deployed independently of each other.
-Although microservice architectures often rely on the \gls{iaas} solutions cloud providers offer, and thus abstract away the underlying infrastructure to a certain degree, developers still need to handle most scaling and application specific \gls{qos} requirements themselves.
+Although microservice architectures often rely on the \gls{iaas} or \gls{paas} solutions cloud providers offer, and thus abstract away the underlying infrastructure to a certain degree, developers still need to handle most scaling and application specific \gls{qos} requirements themselves.
 
-From a developer's perspective serverless computing is a further increase in abstraction \cite{jonasCloudProgrammingSimplified2019}.
+From a developer's perspective, serverless computing is a further increase in abstraction \cite{jonasCloudProgrammingSimplified2019}.
 It can be seen as the next step in an evolution away from monolithic software applications.
-Where microservices and containerized deployments first partitioned a large application into several smaller applications, serverless takes this even further, since in serverless computing applications are partitioned into individual \textit{functions}, which all perform a single action\cite{khandelwalTaureauDeconstructingServerless2020}.
+Where microservices and containerized deployments first partitioned a large application into several smaller applications, serverless computing continues this trend of division into smaller components, since in serverless computing applications are partitioned into individual \textit{functions}, which each perform a single action\cite{khandelwalTaureauDeconstructingServerless2020}.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{graphics/diagrams/monolith_micro_serverless.drawio.png}
+    \includegraphics[width=\columnwidth]{graphics/diagrams/monolith_micro_serverless.png}
     \caption{Conceptual overview of different application architecture paradigms}
     \label{fig:mono_micro_serverless}
 \end{figure}
@@ -29,7 +31,7 @@ Overall serverless affords application developers a number of advantages:
     \item \textbf{Precise Billing:} While in traditional cloud computing environments resources are leased for a set amount of time, irrespective of their actual usage\cite{khandelwalTaureauDeconstructingServerless2020}, serverless features a billing model where only the actual execution time and memory footprint of a function is billed down to millisecond precision\cite{jonasCloudProgrammingSimplified2019}. This allows for better resource utilization and potentially reduced costs from a customer's perspective\cite{khandelwalTaureauDeconstructingServerless2020}.
 \end{itemize}
 
-While these advantages of serverless computing over more traditional approaches are compelling, there are also idiosyncrasies of serverless computing that, depending on the application, be problematic.
+While these advantages of serverless computing over more traditional approaches are compelling, there are also idiosyncrasies of serverless computing that can, depending on the application, be problematic.
 These include the need for statelessness, meaning that serverless functions have no inherent capacity to store data and would instead need to fetch it from yet another service\cite{khandelwalTaureauDeconstructingServerless2020}, or potential performance inconsistencies from cold-starts.
 A cold-start, which means that the specific function code isn't running and has to be started before the request can be serviced, can occur because a serverless function wasn't executed for a certain time\cite{wangPeekingCurtainsServerless2018}.
 
@@ -44,33 +46,35 @@ Since OpenFaaS has already been adapted for serverless edge computing by Rausch 
 
 Architecturally, OpenFaaS is structured very similarly to the generic serverless architecture described by Castro et al.\cite{castroServerDeadLong2019}.
 It too has a centralized entry-point, the Gateway, which sends requests to specific function replicas or alternatively to a queue (used for asynchronous processing and dealing with requests to functions that aren't currently running).
+Each Gateway is thus effectively a load balancer for the serverless functions.
 Figure \ref{fig:openfaas-gateway-diagram} shows a diagram of the architecture, as it is found in their official documentation\cite{openfaas-gateway}.
 
-From a technical perspective a key aspect of OpenFaaS' implementation is that it uses containers to host functions.
+From a technical perspective, a key aspect of OpenFaaS' implementation is that it uses containers to host functions.
 Containers provide an abstraction over Linux based operating systems, allowing for easier management of software dependencies, more closely controlled execution environments, and stronger application isolation.
-Each function is packaged into such a container, which is an almost fully self-contained and portable artifact, that allows executing the developers code on any machine with a compatible container runtime.
+Each function is packaged into such a container, which is an almost fully self-contained and portable artifact, that allows executing the developers' code on any machine with a compatible container runtime.
 Functionally they behave similar to virtual machines, although they start up much faster, and aren't actually running individual kernels, which is why they do not provide the same level of security isolation true virtual machines do.
 This choice allows functions to execute reliably, no matter the environment, and also makes it entirely agnostic to the programming language developers wish to use.
-Since using containers entails their management over a cluster of multiple nodes, a task which is extremely complex, OpenFaaS\cite{openfaas} as well as other serverless frameworks build on Kubernetes\cite{kubernetes}, the de-factor industry default container orchestration and management platform.
+Since using containers entails their management over a cluster of multiple nodes, a task which is extremely complex, OpenFaaS\cite{openfaas} as well as other serverless frameworks build on Kubernetes\cite{kubernetes}, the de-facto industry standard container orchestration and management platform.
 Building upon Kubernetes to deal with container management is a common choice among open source serverless frameworks, a choice which OpenWhisk and Kubeless make as well\cite{mohantyEvaluationOpenSource2018}.
 
-OpenFaaS delegates a large number of tasks to the underlying Kubernetes cluster, including name resolution, request routing, and potentially scaling.
-For this work the delegation of load balancing decisions is especially important, since it implies that OpenFaaS uses whichever load balancing algorithm Kubernetes uses internally to distribute requests among function replicas.
+OpenFaaS delegates a large number of tasks to the underlying Kubernetes cluster, including name resolution, request routing, which includes load balancing, and potentially scaling.
+For this work, the delegation of load balancing decisions is especially important, since it implies that OpenFaaS uses whichever load balancing algorithm Kubernetes uses internally to distribute requests among function replicas.
 Scaling, which determines how many instances of a serverless functions are running at any given time, can work via different mechanisms in OpenFaaS.
-Depending how OpenFaaS is configured, it can either use Kubernetes' integrated \gls{hpa}\cite{kubernetes-hpa} or its own internal mechanism, which optionally allows for user customized scaling behaviour\cite{openfaas-autoscaling}.
-Since this work also aims to explore the impact a change in scaling and scheduling load balancers can have on the behaviour of these scaling systems in general, we will now briefly describe the default scaling behaviour of both \gls{hpa} and OpenFaaS' own scaler.
+Depending how OpenFaaS is configured, it can either use Kubernetes' integrated \gls{hpa}\cite{kubernetes-hpa} or its own internal mechanism, which optionally allows for user customized scaling behavior\cite{openfaas-autoscaling}.
+Since this work also aims to explore the impact a change in scaling and scheduling load balancers can have on the behavior of these scaling systems in general, we will now briefly describe the default scaling behavior of both \gls{hpa} and OpenFaaS' own scaler.
 
 \subsubsection{Kubernets \gls{hpa}}
-In Kubernetes scaling is typically based on either CPU or memory utilization, although in principle it can be extrended with user-provided custom metrics\cite{kubernetes-hpa}.
+In Kubernetes scaling is typically based on either CPU or memory utilization, although in principle it can be extended with user-provided custom metrics\cite{kubernetes-hpa}.
 For a given deployment, which in the context of serverless computing would be a function, a target resource value is defined.
 An example would be a target average CPU utilization of 50\% for a type of function.
-At that point Kubernetes decides in a linear fashion what the desired number of replicas is.
-\[ \text{Let } r_{\text{current}} \text{ be the number of current replicas, }\]
-\[m_{\text{current}} \text{ the current value of the metric in question}\]
-\[\text{ and } m_{\text{target}} \text{ the target value of the metric. Then the target replica count is }\]
+At that point, Kubernetes decides in a linear fashion what the desired number of replicas is.
+
+Let $\mathbf{r_{\text{current}}}$ be the number of current replicas, $\mathbf{m_{\text{current}}}$ the current value of the metric in question and $\mathbf{m_{\text{target}}}$ the target value of the metric.
+Then the target replica count is
+
 \[ r_{\text{target}} = \left \lceil r_{\text{current}} \times \frac{m_{\text{current}}}{m_{\text{target}}} \right \rceil\]
 
-To prevent inconsistent behaviour such as replica counts oscillating Kubernetes also allows certain limiters to be set, such as minimum and maximum scales, rate of change for adding or removing replicas, and cool-downs which allow the system to stabilize before new scaling decisions are considered\cite{kubernetes-hpa}.
+To prevent inconsistent behavior such as replica counts oscillating Kubernetes also allows certain limiters to be set, such as minimum and maximum scales, rate of change for adding or removing replicas, and cool-downs which give the system time to stabilize before new scaling decisions are considered\cite{kubernetes-hpa}.
 
 \subsubsection{OpenFaaS scaling}
 The OpenFaaS integrated scaling mechanism is comprised of different parameters.
@@ -78,11 +82,11 @@ First a minimum and maximum scale must be set, which determine the effect of the
 In this custom scaling variant system parameters, such as the request rate of a given function, are continuously evaluated.
 Once a configured condition is met the system is notified that a given function needs to scale up or down.
 The aforementioned scaling factor, which is a percentage value between 0 and 100, is then used to determine how many replicas should be started or stopped\cite{openfaas-autoscaling}.
-Each scaling iterations adds or removes a number of replicas relative to the maximum scale allowed, and the scaling factor determines the size of that share.
+Each scaling iteration adds or removes a number of replicas relative to the maximum scale allowed, and the scaling factor determines the size of that share.
 If, for example, the maximum number of replicas is 50, and the scaling factor is 10\%, then at each scaling operation 5 replicas will be added or removed.
 
-Which exact conditions trigger a scale up or scale down event within OpenFaaS is extremely configurable, and allows for customization based on an individual functions requirements.
-By default OpenFaaS triggers a scale-up event if the rate of rise of a functions invocation frequency exceeds a threshold over a period of time.
+Which exact conditions trigger a scale up or scale down event within OpenFaaS is extremely configurable, and allows for customization based on an individual function's requirements.
+By default, OpenFaaS triggers a scale-up event if the rate of rise of a function's invocation frequency exceeds a threshold over a period of time.
 
 
 

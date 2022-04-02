@@ -4,7 +4,7 @@ Our objective with this thesis is to improve serverless computing for network bo
 The improvements we aim for are focused primarily on reducing response time, which has already been identified as an issue \cite{skippy}, but are likely also translatable to efficiency gains, depending on what the implementation goals of the specific system in question are.
 
 
-Our initial evaluation identified load balancing as one of the primary factors holding back the performance of serverless edge computing for network bound workloads, and we thus aim to make improvements in this area.
+Our initial evaluation identified load balancing as the primary factor holding back the performance of serverless edge computing for network bound workloads, and we thus aim to make improvements in this area.
 As our preliminary testing showed, the minimum requirements to make meaningful improvements in this area are that load balancers need to be distributed across the network  instead of being centralized, and that they need to make more sophisticated load balancing decisions.
 To this end our goal is two-fold.
 First, we want to present a method for scaling and scheduling load balancers in such a way that they are close enough to both clients and function replicas in the network to enable requests to take an efficient path between the two.
@@ -13,7 +13,7 @@ Second, we will propose a load balancing scheme that makes load balancing decisi
 
 To evaluate different approaches for load balancer placement and load balancing decisions we use and extend a state of the art serverless computing simulator, and ground those simulations on real data where possible by building upon existing research\cite{philipp-da}, and conducting additional experiments to inform the simulator's functioning.
 This way our methodology allows us to explore scenarios beyond those feasible for live-hardware experimentation, while making sure results are as representative as possible by using performance profiles generated via experiments with actual hardware \cite{thomas-thesis}.
-Apart from simulations in the context of serverless computing, we perform separate simulations and experiments in related areas, deepening the understanding, and showing the relation between the challenges of serverless edge computing and the broader context.
+Apart from simulations in the context of serverless computing, we perform separate simulations and experiments in related areas, deepening the understanding and showing the relation between the challenges of serverless edge computing and the broader context.
 
 We further explore more than just end user performance metrics, also showing how the different components present in modern serverless solutions are influenced and themselves influence methods for load balancing and placing load balancer replicas.
-Through this we gain an understanding of, outline, and propose a potential solution for the engineering problems that need to be solved in order to improve serverless edge computing in practise.
+Through this we gain an understanding of, outline, and propose a potential solution for the engineering problems that need to be solved in order to improve serverless edge computing in practice.
